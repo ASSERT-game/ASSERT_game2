@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 22:10:39 by home              #+#    #+#             */
-/*   Updated: 2020/05/06 22:11:16 by home             ###   ########.fr       */
+/*   Updated: 2020/05/07 02:15:37 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,6 @@
 void	prints(void)
 {
 	printf("Dir makefile\n");
+	printf("Test\n");
+	printf("Changed\n");
 }

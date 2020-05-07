@@ -6,7 +6,7 @@
 #    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/06 17:51:42 by home              #+#    #+#              #
-#    Updated: 2020/05/06 23:49:08 by home             ###   ########.fr        #
+#    Updated: 2020/05/07 02:37:46 by home             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,22 +33,22 @@ OBJ_NAMES = \
 
 SRCS = $(addsuffix .c, $(addprefix $(SRCS_DIR), $(FILE_NAMES)))
 
-T_OBJS = $(addsuffix .o, $(addprefix $(SRCS_DIR), $(FILE_NAMES)))
+P_OBJS = $(SRCS:.c=.o)
 
 OBJS = $(addprefix $(BINARY_DIR), $(OBJ_NAMES))
 
-all: $(NAME)
+all:
+	make $(NAME)
 
-$(NAME): $(OBJ_NAMES)
+$(NAME): $(P_OBJS)
+	make install
 	gcc $(FLAGS) $(INCLUDES) -o $(NAME) $(OBJS)
 
-$(OBJS): $(OBJ_NAMES) $(BINARY_DIR)
-	gcc $(FLAGS) $(INCLUDES) -c $(SRCS)
-	mv $(OBJ_NAMES) $(BINARY_DIR)
+install: $(BINARY_DIR)
+	cp $(OBJ_NAMES) $(BINARY_DIR)
 
-$(OBJ_NAMES):
-	echo $(SRCS)
-	touch $(BINARY_DIR)$@
+%.o: %.c
+	gcc $(FLAGS) $(INCLUDES) -c $<
 
 $(BINARY_DIR):
 	mkdir $(BINARY_DIR)
@@ -59,4 +59,7 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-
+save: fclean
+	git add .
+	git commit -m "$(MSG)"
+	git push
