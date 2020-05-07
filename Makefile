@@ -6,7 +6,7 @@
 #    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/06 17:51:42 by home              #+#    #+#              #
-#    Updated: 2020/05/07 02:37:46 by home             ###   ########.fr        #
+#    Updated: 2020/05/07 03:15:16 by home             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ $(NAME): $(P_OBJS)
 	gcc $(FLAGS) $(INCLUDES) -o $(NAME) $(OBJS)
 
 install: $(BINARY_DIR)
-	cp $(OBJ_NAMES) $(BINARY_DIR)
+	mv $(OBJ_NAMES) $(BINARY_DIR)
 
 %.o: %.c
 	gcc $(FLAGS) $(INCLUDES) -c $<
@@ -63,3 +63,10 @@ save: fclean
 	git add .
 	git commit -m "$(MSG)"
 	git push
+
+re: fclean all
+
+run: re
+	clear
+	@echo "\033[1m\033[32m$(NAME)\033[0m"
+	@./$(NAME)
