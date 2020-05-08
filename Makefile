@@ -6,13 +6,14 @@
 #    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/06 17:51:42 by home              #+#    #+#              #
-#    Updated: 2020/05/07 18:33:25 by home             ###   ########.fr        #
+#    Updated: 2020/05/07 20:25:08 by home             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = run_g2
 FLAGS = -Wall -Wextra -Werror
-INCLUDES = -I includes/
+INCLUDES = -I includes/ -I ~/.brew/include
+SDL_LIB = -L ~/.brew/lib -l SDL2
 
 SRCS_DIR = srcs/
 BINARY_DIR = bin/
@@ -37,7 +38,7 @@ OBJS = $(addprefix $(BINARY_DIR), $(SRCS:.c=.o))
 all: $(NAME)
 
 $(NAME): $(BINARY_DIR) $(OBJS)
-	gcc $(FLAGS) $(INCLUDES) -o $(NAME) $(OBJS)
+	gcc $(FLAGS) $(INCLUDES) -o $(NAME) $(OBJS) $(SDL_LIB)
 
 $(BINARY_DIR)%.o: %.c
 	mkdir -p $(BINARY_DIR)$(dir $<)
