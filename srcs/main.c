@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 21:00:54 by home              #+#    #+#             */
-/*   Updated: 2020/05/07 20:37:32 by home             ###   ########.fr       */
+/*   Updated: 2020/05/07 20:57:07 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(void)
 
 	SDL_Init(SDL_INIT_VIDEO);
 	window = SDL_CreateWindow("SDL Tut",
-			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_CENTERED,
+			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_CENTERED + 40,
 			100, 100, SDL_WINDOW_SHOWN);
 
 	surface = SDL_GetWindowSurface(window);
