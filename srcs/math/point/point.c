@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphics_structs.h                                 :+:      :+:    :+:   */
+/*   point.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/07 22:49:36 by home              #+#    #+#             */
-/*   Updated: 2020/05/07 23:42:28 by home             ###   ########.fr       */
+/*   Created: 2020/05/08 01:47:08 by home              #+#    #+#             */
+/*   Updated: 2020/05/08 02:26:10 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GRAPHICS_STRUCTS_H
-# define GRAPHICS_STRUCTS_H
+#include "ft_math.h"
 
-#include <SDL2/SDL.h>
-#include "math_structs.h"
-
-typedef struct	s_window
+void	point_fill(t_point *dest, int x, int y)
 {
-	t_rect			shape;
-
-	SDL_Renderer	*renderer;
-}				t_window;
-
-#endif
+	dest->x = x;
+	dest->y = y;
+}

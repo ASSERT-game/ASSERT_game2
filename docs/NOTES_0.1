@@ -1,0 +1,46 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    NOTES_0.1                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/05/08 00:29:47 by home              #+#    #+#              #
+#    Updated: 2020/05/08 01:38:32 by home             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Wow, even something as simple as a rectangle is difficult to do.
+
+Like how should it be constructed?
+rect(point_A, point_B)
+rect(x_start, y_start, x_end, y_end)
+rect(point_A, width, height)
+
+Should it return a pointer or the structure, or should you just
+pass a pointer to the dest location?
+
+In thinking of these things you have to think how a user will
+use the constructor. And from there you have to see if there
+are optimization that you can do?
+
+For this particular problem I went with:
+	void rect(&dest, point_A, point_B);
+
+Regardless of whether this is a malloc space or not it will
+put the right information into the address provided.
+The caller can manage how they want to alloc the memory and where.
+
+When resizing the rect, one can just change point_B and call
+the function on itself and it will reput the right info into its
+address.
+
+One can also then utilize the more primitive point functions
+to change the rectangle.
+
+Now, I was told that micro optimizations were the source
+of evil so this implementation is not as efficient as it could
+be. But the user should profile their code first and only then
+see if it is necessary to do something more optimized.
+
+(P.S. Also watch out for naming of these things. Users w)

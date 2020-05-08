@@ -6,7 +6,7 @@
 #    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/06 17:51:42 by home              #+#    #+#              #
-#    Updated: 2020/05/07 22:24:11 by home             ###   ########.fr        #
+#    Updated: 2020/05/08 01:57:59 by home             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,16 @@ SDL_LIB = -L ~/.brew/lib -l SDL2
 SRCS_DIR = srcs/
 BINARY_DIR = bin/
 
+RECT_NAMES = \
+	rect \
+
+POINT_NAMES = \
+	point \
+
+MATH_NAMES = \
+	$(addprefix point/, $(POINT_NAMES)) \
+	$(addprefix rect/, $(RECT_NAMES)) \
+
 DEBUG_NAMES = \
 	test \
 
@@ -27,7 +37,8 @@ SRCS_NAMES = \
 
 FILE_NAMES = \
 	$(SRCS_NAMES) \
-	$(addprefix debug/, $(DEBUG_NAMES))
+	$(addprefix debug/, $(DEBUG_NAMES)) \
+	$(addprefix math/, $(MATH_NAMES)) \
 
 OBJ_NAMES = \
 	$(addsuffix .o, $(SRCS_NAMES)) \
