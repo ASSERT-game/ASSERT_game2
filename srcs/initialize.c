@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/06 22:10:39 by home              #+#    #+#             */
-/*   Updated: 2020/05/07 23:32:39 by home             ###   ########.fr       */
+/*   Created: 2020/05/07 22:24:16 by home              #+#    #+#             */
+/*   Updated: 2020/05/07 23:30:33 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "graphics_structs.h"
+#include "window_config.h"
 
-void	prints(void)
+void	SDLG_setup(void)
 {
-	printf("Test\n");
-	printf("Changed\n");
+	SDL_Window	*window;
+	// SDL_Surface	*surface;
+
+	SDL_Init(SDL_INIT_EVERYTHING);
+	window = SDL_CreateWindow(WIN_TITLE,
+				1400, SDL_WINDOWPOS_CENTERED,
+				WIN_WIDTH, WIN_HEIGHT,
+				SDL_WINDOW_SHOWN);
 }

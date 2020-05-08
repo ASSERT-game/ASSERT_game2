@@ -1,19 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   math_structs.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/06 22:10:39 by home              #+#    #+#             */
-/*   Updated: 2020/05/07 23:32:39 by home             ###   ########.fr       */
+/*   Created: 2020/05/07 22:45:17 by home              #+#    #+#             */
+/*   Updated: 2020/05/07 22:48:33 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#ifndef MATH_STRUCTS_H
+# define MATH_STRUCTS_H
 
-void	prints(void)
+typedef struct	s_point
 {
-	printf("Test\n");
-	printf("Changed\n");
-}
+	int			x;
+	int			y;
+}				t_point;
+
+typedef struct	s_rect
+{
+	t_point		start;
+	t_point		end;
+
+	int			width;
+	int			height;
+}				t_rect;
+
+#endif

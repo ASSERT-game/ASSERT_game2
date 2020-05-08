@@ -6,7 +6,7 @@
 #    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/06 17:51:42 by home              #+#    #+#              #
-#    Updated: 2020/05/07 20:25:08 by home             ###   ########.fr        #
+#    Updated: 2020/05/07 22:24:11 by home             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ DEBUG_NAMES = \
 	test \
 
 SRCS_NAMES = \
+	initialize \
 	main \
 
 FILE_NAMES = \
