@@ -6,7 +6,7 @@
 #    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/06 17:51:42 by home              #+#    #+#              #
-#    Updated: 2020/05/07 03:15:16 by home             ###   ########.fr        #
+#    Updated: 2020/05/07 18:33:25 by home             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,23 +32,16 @@ OBJ_NAMES = \
 	$(addsuffix .o, $(DEBUG_NAMES)) \
 
 SRCS = $(addsuffix .c, $(addprefix $(SRCS_DIR), $(FILE_NAMES)))
+OBJS = $(addprefix $(BINARY_DIR), $(SRCS:.c=.o))
 
-P_OBJS = $(SRCS:.c=.o)
+all: $(NAME)
 
-OBJS = $(addprefix $(BINARY_DIR), $(OBJ_NAMES))
-
-all:
-	make $(NAME)
-
-$(NAME): $(P_OBJS)
-	make install
+$(NAME): $(BINARY_DIR) $(OBJS)
 	gcc $(FLAGS) $(INCLUDES) -o $(NAME) $(OBJS)
 
-install: $(BINARY_DIR)
-	mv $(OBJ_NAMES) $(BINARY_DIR)
-
-%.o: %.c
-	gcc $(FLAGS) $(INCLUDES) -c $<
+$(BINARY_DIR)%.o: %.c
+	mkdir -p $(BINARY_DIR)$(dir $<)
+	gcc $(FLAGS) $(INCLUDES) -c $< -o $@
 
 $(BINARY_DIR):
 	mkdir $(BINARY_DIR)
