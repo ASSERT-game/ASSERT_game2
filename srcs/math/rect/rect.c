@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 00:18:48 by home              #+#    #+#             */
-/*   Updated: 2020/05/08 02:43:10 by home             ###   ########.fr       */
+/*   Updated: 2020/05/08 20:17:08 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,12 @@ void	rect_update(t_rect *self, void *change)
 		self->end.x = self->start.x + self->width;
 		self->end.y = self->start.y +  self->height;
 	}
+}
+
+void	rect_print(t_rect *rect)
+{
+	printf("Rect: (%d, %d) + (%d, %d) = (%d, %d)\n",
+				rect->start.x, rect->start.y,
+				rect->width, rect->height,
+				rect->end.x, rect->end.y);
 }

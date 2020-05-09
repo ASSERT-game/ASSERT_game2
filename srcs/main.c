@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 21:00:54 by home              #+#    #+#             */
-/*   Updated: 2020/05/08 02:45:13 by home             ###   ########.fr       */
+/*   Updated: 2020/05/08 20:18:30 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,9 @@ int	main(void)
 
 	point_fill(&(rect.start), 0, 0);
 	point_fill(&(rect.end), 100, 100);
-
-	printf("%d and %d\n", rect.height, rect.width);
-
+	rect_print(&rect);
 	rect_update(&rect, &(rect.start));
-
-	printf("%d and %d\n", rect.height, rect.width);
-
+	rect_print(&rect);
 	SDLG_setup();
 
 	SDL_Delay(4000);
