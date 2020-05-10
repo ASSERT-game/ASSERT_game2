@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:49:36 by home              #+#    #+#             */
-/*   Updated: 2020/05/10 00:01:49 by home             ###   ########.fr       */
+/*   Updated: 2020/05/10 00:47:25 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@
 
 typedef struct	s_display
 {
+	SDL_Window		*window;
+	unsigned char	*pixels;
+
 	t_rect			shape;
 	int				width;
 	int				height;
 
-	SDL_Window		*window;
-	unsigned char	*pixels;
+	unsigned char	*background;
 
 }				t_display;
 

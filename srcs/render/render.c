@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window_config.h                                    :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/07 23:13:44 by home              #+#    #+#             */
-/*   Updated: 2020/05/10 00:31:27 by home             ###   ########.fr       */
+/*   Created: 2020/05/10 00:23:26 by home              #+#    #+#             */
+/*   Updated: 2020/05/10 00:45:05 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WINDOW_CONFIG_H
-# define WINDOW_CONFIG_H
+#include "master.h"
 
-# define WIN_TITLE "GAME"
-
-# define WIN_WIDTH 1200
-# define WIN_HEIGHT 900
-
-# define BPP 4
-
-#endif
+void	refresh_display(t_display *display)
+{
+	apply_background(display->pixels, display->background,
+					display->width * display->height);
+	SDL_UpdateWindowSurface(display->window);
+}

@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 21:00:54 by home              #+#    #+#             */
-/*   Updated: 2020/05/10 00:14:40 by home             ###   ########.fr       */
+/*   Updated: 2020/05/10 00:45:31 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(void)
 		display.pixels[1000 * 300 * 4 + i * 4 + 2] = 0;
 		i++;
 	}
-	SDL_UpdateWindowSurface(display.window);
+	refresh_display(&display);
 
 	poll_and_toolbar();
 

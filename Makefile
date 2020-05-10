@@ -6,7 +6,7 @@
 #    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/06 17:51:42 by home              #+#    #+#              #
-#    Updated: 2020/05/10 00:14:59 by home             ###   ########.fr        #
+#    Updated: 2020/05/10 00:37:32 by home             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,10 @@ MATH_NAMES = \
 DEBUG_NAMES = \
 	test \
 
+RENDER_NAMES = \
+	background \
+	render \
+
 SRCS_NAMES = \
 	build_source \
 	initialize \
@@ -40,10 +44,12 @@ FILE_NAMES = \
 	$(SRCS_NAMES) \
 	$(addprefix debug/, $(DEBUG_NAMES)) \
 	$(addprefix math/, $(MATH_NAMES)) \
+	$(addprefix render/, $(RENDER_NAMES)) \
 
 OBJ_NAMES = \
 	$(addsuffix .o, $(SRCS_NAMES)) \
 	$(addsuffix .o, $(DEBUG_NAMES)) \
+	$(addsuffix .o, $(RENDER_NAMES)) \
 
 SRCS = $(addsuffix .c, $(addprefix $(SRCS_DIR), $(FILE_NAMES)))
 OBJS = $(addprefix $(BINARY_DIR), $(SRCS:.c=.o))
