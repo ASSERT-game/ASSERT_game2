@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:49:36 by home              #+#    #+#             */
-/*   Updated: 2020/05/08 20:32:33 by home             ###   ########.fr       */
+/*   Updated: 2020/05/10 00:01:49 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@
 #include <SDL2/SDL.h>
 #include "math_structs.h"
 
-typedef struct	s_window
+typedef struct	s_display
 {
 	t_rect			shape;
+	int				width;
+	int				height;
 
-	SDL_Window		*display;
+	SDL_Window		*window;
+	unsigned char	*pixels;
 
-	SDL_Renderer	*renderer;
-}				t_window;
+}				t_display;
 
 #endif

@@ -6,21 +6,32 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:24:16 by home              #+#    #+#             */
-/*   Updated: 2020/05/08 20:43:11 by home             ###   ########.fr       */
+/*   Updated: 2020/05/10 00:18:14 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "graphics_structs.h"
-#include "window_config.h"
+#include "master.h"
 
-void	SDLG_setup(void)
+int		SDLG_setup(t_display *dest)
 {
 	SDL_Window	*window;
-	// SDL_Surface	*surface;
+	SDL_Surface	*surface;
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow(WIN_TITLE,
 				1400, SDL_WINDOWPOS_CENTERED,
 				WIN_WIDTH, WIN_HEIGHT,
 				SDL_WINDOW_SHOWN);
+	surface = SDL_GetWindowSurface(window);
+
+	dest->window = window;
+	dest->pixels = surface->pixels;
+
+	rect_fill(&dest->shape, &(t_point){0, 0}, &(t_point){WIN_WIDTH, WIN_HEIGHT});
+	dest->width = WIN_WIDTH;
+	dest->height = WIN_HEIGHT;
+
+	rect_print(&dest->shape);
+
+	return (SUCCESS);
 }
