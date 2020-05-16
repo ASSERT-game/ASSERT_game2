@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/10 00:23:26 by home              #+#    #+#             */
-/*   Updated: 2020/05/10 18:18:02 by home             ###   ########.fr       */
+/*   Created: 2020/05/15 22:40:38 by home              #+#    #+#             */
+/*   Updated: 2020/05/15 23:16:34 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "master.h"
 
-void	refresh_display(t_display *display)
+void	color_in(t_point location, int color, t_display *display)
 {
-	// apply_background(display->pixels, display->background,
-	// 				display->width * display->height);
-	SDL_UpdateWindowSurface(display->window);
+	if (location.x < 0 || location.x > display->height ||
+		location.y < 0 || location.y > display->width)
+		return ;
+	else
+	{
+		display->pixels[location.x * 1200 * BPP + location.y * BPP + 0] = color >> 0;
+		display->pixels[location.x * 1200 * BPP + location.y * BPP + 1] = color >> 8;
+		display->pixels[location.x * 1200 * BPP + location.y * BPP + 0] = color >> 16;
+	}
 }

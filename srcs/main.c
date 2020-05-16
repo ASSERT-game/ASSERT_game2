@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 21:00:54 by home              #+#    #+#             */
-/*   Updated: 2020/05/10 00:45:31 by home             ###   ########.fr       */
+/*   Updated: 2020/05/15 23:04:42 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,24 @@
 
 int	main(void)
 {
-	int i;
 	t_display	display;
 
 	SDLG_setup(&display);
+	apply_background(display.pixels, display.background, display.width * display.height);
 
-	i = 0;
-	while (i < 1000 * 500 * 4)
-	{
-		display.pixels[i] = 150;
-		i++;
-	}
+	t_point	test;
 
-	i = 100;
-	while (i < 200)
-	{
-		display.pixels[1000 * 100 * 4 + i * 4 + 0] = 250;
-		display.pixels[1000 * 100 * 4 + i * 4 + 1] = 0;
-		display.pixels[1000 * 100 * 4 + i * 4 + 2] = 0;
+	test.x = 100;
+	test.y = 100;
 
-		display.pixels[1000 * 200 * 4 + i * 4 + 0] = 250;
-		display.pixels[1000 * 200 * 4 + i * 4 + 1] = 0;
-		display.pixels[1000 * 200 * 4 + i * 4 + 2] = 0;
+	draw_point(test, &display);
 
-		display.pixels[1000 * 300 * 4 + i * 4 + 0] = 250;
-		display.pixels[1000 * 300 * 4 + i * 4 + 1] = 0;
-		display.pixels[1000 * 300 * 4 + i * 4 + 2] = 0;
-		i++;
-	}
+	test.x += 100;
+	draw_point(test, &display);
+
+	test.y += 300;
+	draw_point(test, &display);
+
 	refresh_display(&display);
 
 	poll_and_toolbar();

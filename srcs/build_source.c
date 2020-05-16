@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 00:12:10 by home              #+#    #+#             */
-/*   Updated: 2020/05/10 00:13:46 by home             ###   ########.fr       */
+/*   Updated: 2020/05/15 22:58:12 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,27 @@ void	poll_and_toolbar(void)
 			if( e.type == SDL_QUIT )
 				quit = true;
 	}
+}
+
+void	draw_point(t_point point, t_display *display)
+{
+	//transform
+
+	int	x_screen;
+	int	y_screen;
+
+	x_screen = point.x;
+	y_screen = point.y;
+
+	color_in((t_point){x_screen - 1, y_screen - 1}, 0xFF0000, display);
+	color_in((t_point){x_screen + 0, y_screen - 1}, 0xFF0000, display);
+	color_in((t_point){x_screen + 1, y_screen - 1}, 0xFF0000, display);
+
+	color_in((t_point){x_screen - 1, y_screen + 0}, 0xFF0000, display);
+	color_in((t_point){x_screen + 0, y_screen + 0}, 0xFF0000, display);
+	color_in((t_point){x_screen + 1, y_screen + 0}, 0xFF0000, display);
+
+	color_in((t_point){x_screen - 1, y_screen + 1}, 0xFF0000, display);
+	color_in((t_point){x_screen + 0, y_screen + 1}, 0xFF0000, display);
+	color_in((t_point){x_screen + 1, y_screen + 1}, 0xFF0000, display);
 }

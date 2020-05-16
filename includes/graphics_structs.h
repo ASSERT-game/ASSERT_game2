@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:49:36 by home              #+#    #+#             */
-/*   Updated: 2020/05/10 00:47:25 by home             ###   ########.fr       */
+/*   Updated: 2020/05/15 22:57:28 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,15 @@ typedef struct	s_display
 	t_rect			shape;
 	int				width;
 	int				height;
+	int				size;
 
 	unsigned char	*background;
 
 }				t_display;
+
+typedef struct	s_camera
+{
+	int			pos;
+}				t_camera;
 
 #endif

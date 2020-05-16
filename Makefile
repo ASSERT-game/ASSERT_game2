@@ -6,7 +6,7 @@
 #    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/06 17:51:42 by home              #+#    #+#              #
-#    Updated: 2020/05/10 00:37:32 by home             ###   ########.fr        #
+#    Updated: 2020/05/15 23:02:18 by home             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ DEBUG_NAMES = \
 	test \
 
 RENDER_NAMES = \
+	pixels \
 	background \
 	render \
 
@@ -79,7 +80,9 @@ save: fclean
 
 re: fclean all
 
-run: re
+run:
+	rm -f $(NAME)
+	make all
 	clear
 	@echo "\033[1m\033[32m$(NAME)\033[0m"
 	@./$(NAME)
