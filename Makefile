@@ -6,7 +6,7 @@
 #    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/06 17:51:42 by home              #+#    #+#              #
-#    Updated: 2020/05/15 23:02:18 by home             ###   ########.fr        #
+#    Updated: 2020/05/16 00:55:08 by home             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,11 @@ RECT_NAMES = \
 POINT_NAMES = \
 	point \
 
+MATRIX_NAMES = \
+	matrix_operations \
+
 MATH_NAMES = \
+	$(addprefix matrix/, $(MATRIX_NAMES)) \
 	$(addprefix point/, $(POINT_NAMES)) \
 	$(addprefix rect/, $(RECT_NAMES)) \
 

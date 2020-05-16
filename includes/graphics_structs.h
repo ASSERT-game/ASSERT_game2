@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:49:36 by home              #+#    #+#             */
-/*   Updated: 2020/05/15 22:57:28 by home             ###   ########.fr       */
+/*   Updated: 2020/05/16 00:26:58 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct	s_display
 
 typedef struct	s_camera
 {
-	int			pos;
+	t_matrix_4x4i	proj;
 }				t_camera;
 
 #endif

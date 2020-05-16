@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 21:00:54 by home              #+#    #+#             */
-/*   Updated: 2020/05/15 23:04:42 by home             ###   ########.fr       */
+/*   Updated: 2020/05/16 00:31:05 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ int	main(void)
 	SDLG_setup(&display);
 	apply_background(display.pixels, display.background, display.width * display.height);
 
-	t_point	test;
+	t_vector_4i	test;
 
-	test.x = 100;
-	test.y = 100;
+	test.vec[0] = 100;
+	test.vec[1] = 100;
 
 	draw_point(test, &display);
 
-	test.x += 100;
+	test.vec[0] += 100;
 	draw_point(test, &display);
 
-	test.y += 300;
+	test.vec[1] += 300;
 	draw_point(test, &display);
 
 	refresh_display(&display);

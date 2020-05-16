@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:55:52 by home              #+#    #+#             */
-/*   Updated: 2020/05/15 22:58:36 by home             ###   ########.fr       */
+/*   Updated: 2020/05/16 00:30:16 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define FAILURE 0
 
 void			color_in(t_point point, int color, t_display *display);
-void			draw_point(t_point point, t_display *display);
+void			draw_point(t_vector_4i point, t_display *display);
 
 void			poll_and_toolbar(void);
 

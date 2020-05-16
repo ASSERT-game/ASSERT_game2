@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:45:17 by home              #+#    #+#             */
-/*   Updated: 2020/05/07 22:48:33 by home             ###   ########.fr       */
+/*   Updated: 2020/05/16 00:24:14 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,15 @@ typedef struct	s_rect
 	int			width;
 	int			height;
 }				t_rect;
+
+typedef struct	s_vector_4i
+{
+	int			vec[4];
+}				t_vector_4i;
+
+typedef struct	s_matrix_4x4i
+{
+	int			matrix[4][4];
+}				t_matrix_4x4i;
 
 #endif
