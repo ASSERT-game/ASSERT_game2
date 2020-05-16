@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/06 21:00:54 by home              #+#    #+#             */
-/*   Updated: 2020/05/16 01:58:00 by home             ###   ########.fr       */
+/*   Created: 2020/05/16 01:59:06 by home              #+#    #+#             */
+/*   Updated: 2020/05/16 02:11:21 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "master.h"
 
-int	main(void)
+void	init_camera(t_camera *dest)
 {
-	t_display	display;
+	bzero(&dest->proj.matrix, sizeof(dest->proj.matrix));
 
-	SDLG_setup(&display);
-	apply_background(display.pixels, display.background, display.size);
-
-	poll_and_toolbar(&display);
-
-	return (0);
+	dest->proj.matrix[0][0] = -1;
+	dest->proj.matrix[1][1] = 1;
+	dest->proj.matrix[2][2] = 1;
+	dest->proj.matrix[3][3] = 1;
 }

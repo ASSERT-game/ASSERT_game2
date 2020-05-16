@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 00:23:26 by home              #+#    #+#             */
-/*   Updated: 2020/05/10 18:18:02 by home             ###   ########.fr       */
+/*   Updated: 2020/05/16 01:57:55 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	refresh_display(t_display *display)
 {
-	// apply_background(display->pixels, display->background,
-	// 				display->width * display->height);
 	SDL_UpdateWindowSurface(display->window);
+	apply_background(display->pixels, display->background, display->size);
 }

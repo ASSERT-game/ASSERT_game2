@@ -6,7 +6,7 @@
 #    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/06 17:51:42 by home              #+#    #+#              #
-#    Updated: 2020/05/16 00:55:08 by home             ###   ########.fr        #
+#    Updated: 2020/05/16 02:13:27 by home             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,9 @@ DEBUG_NAMES = \
 	test \
 
 RENDER_NAMES = \
-	pixels \
 	background \
+	camera \
+	pixels \
 	render \
 
 SRCS_NAMES = \

@@ -1,0 +1,35 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    NOTES_0.2                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/05/16 01:14:24 by home              #+#    #+#              #
+#    Updated: 2020/05/16 01:34:16 by home             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Some research into the camera:
+
+The camera seems inverted because it is facing the world in the opposite
+direction. So something like moving left would be negative, because the camera
+is facing the opposite direction, left is actually positive direction.
+
+This can also be done by initializing the camera to:
+
+[
+	[-1, 0, 0, 0],
+	[ 0, 1, 0, 0],
+	[ 0, 0, 1, 0],
+	[ 0, 0, 0, 1]
+]
+
+Or more formally, a 180 degree, pi radians, rotation across the y-axis:
+
+[
+	[ cos(A), 0, sin(A), 0],
+	[      0, 1,      0, 0],
+	[-sin(A), 0, cos(A), 0]
+	[      0, 0,      0, 1],
+]

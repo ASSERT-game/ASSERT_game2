@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:24:16 by home              #+#    #+#             */
-/*   Updated: 2020/05/10 01:16:12 by home             ###   ########.fr       */
+/*   Updated: 2020/05/16 01:57:23 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		SDLG_setup(t_display *dest)
 	rect_fill(&dest->shape, &(t_point){0, 0}, &(t_point){WIN_WIDTH, WIN_HEIGHT});
 	dest->width = WIN_WIDTH;
 	dest->height = WIN_HEIGHT;
+	dest->size = dest->width * dest->height;
 
 
 	return (SUCCESS);

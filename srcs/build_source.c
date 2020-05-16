@@ -6,23 +6,32 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 00:12:10 by home              #+#    #+#             */
-/*   Updated: 2020/05/16 00:31:43 by home             ###   ########.fr       */
+/*   Updated: 2020/05/16 02:12:47 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "master.h"
 
-void	poll_and_toolbar(void)
+void	poll_and_toolbar(t_display *display)
 {
 	bool	quit;
 	SDL_Event	e;
+	t_camera	camera;
 
 	quit = false;
+
+	init_camera(&camera);
+	apply_background(display->pixels, display->background, display->size);
+
 	while(!quit)
 	{
 		while( SDL_PollEvent( &e ) != 0 )
+		{
 			if( e.type == SDL_QUIT )
 				quit = true;
+
+		}
+		refresh_display(display);
 	}
 }
 
