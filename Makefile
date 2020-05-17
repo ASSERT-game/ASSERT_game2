@@ -6,7 +6,7 @@
 #    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/06 17:51:42 by home              #+#    #+#              #
-#    Updated: 2020/05/16 02:13:27 by home             ###   ########.fr        #
+#    Updated: 2020/05/17 15:11:10 by home             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ RECT_NAMES = \
 	rect \
 
 POINT_NAMES = \
+	vector4i \
 	point \
 
 MATRIX_NAMES = \
