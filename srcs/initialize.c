@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:24:16 by home              #+#    #+#             */
-/*   Updated: 2020/05/16 01:57:23 by home             ###   ########.fr       */
+/*   Updated: 2020/05/17 20:17:49 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		SDLG_setup(t_display *dest)
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow(WIN_TITLE,
-				1400, SDL_WINDOWPOS_CENTERED,
+				2000, 100,
 				WIN_WIDTH, WIN_HEIGHT,
 				SDL_WINDOW_SHOWN);
 	surface = SDL_GetWindowSurface(window);

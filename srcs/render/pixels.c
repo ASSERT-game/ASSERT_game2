@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 22:40:38 by home              #+#    #+#             */
-/*   Updated: 2020/05/17 15:49:44 by home             ###   ########.fr       */
+/*   Updated: 2020/05/17 21:43:23 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	color_in(t_point location, int color, t_display *display)
 {
-	if (location.x < 0 || location.x > display->height ||
-		location.y < 0 || location.y > display->width)
+	location.y = (WIN_HEIGHT - location.y);
+
+	if (location.x < 0 || location.x > display->width ||
+		location.y < 0 || location.y > display->height)
 		return ;
 	else
 	{

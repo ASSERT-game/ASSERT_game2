@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:55:52 by home              #+#    #+#             */
-/*   Updated: 2020/05/16 02:11:46 by home             ###   ########.fr       */
+/*   Updated: 2020/05/17 20:35:52 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void			poll_and_toolbar(t_display *display);
 int				SDLG_setup(t_display *dest);
 
 void			init_camera(t_camera *dest);
+void			cam_proj(t_vector_4i *transform);
+
 void			refresh_display(t_display *display);
 void			apply_background(unsigned char *dest, unsigned char *source, int pixels);
 unsigned char	*make_background(int color, int total_pixels);
