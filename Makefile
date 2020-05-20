@@ -6,7 +6,7 @@
 #    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/06 17:51:42 by home              #+#    #+#              #
-#    Updated: 2020/05/17 15:11:10 by home             ###   ########.fr        #
+#    Updated: 2020/05/20 04:25:06 by home             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ MATH_NAMES = \
 	$(addprefix matrix/, $(MATRIX_NAMES)) \
 	$(addprefix point/, $(POINT_NAMES)) \
 	$(addprefix rect/, $(RECT_NAMES)) \
+	utils \
 
 DEBUG_NAMES = \
 	test \

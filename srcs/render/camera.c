@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 01:59:06 by home              #+#    #+#             */
-/*   Updated: 2020/05/17 21:43:52 by home             ###   ########.fr       */
+/*   Updated: 2020/05/20 05:19:00 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@ void	init_camera(t_camera *dest)
 	bzero(&dest->proj.matrix, sizeof(dest->proj.matrix));
 
 	dest->proj.matrix[0][0] = 1;
-	dest->proj.matrix[1][1] = 1;
+	dest->proj.matrix[1][1] = -1;
 	dest->proj.matrix[2][2] = 1;
 	dest->proj.matrix[3][3] = 1;
 
-	// dest->proj.matrix[1][3] = WIN_HEIGHT / 2;
+	dest->proj.matrix[1][3] = 100;
+
+	dest->roll = 0;
+	dest->yaw = 0;
 }
 
-void	cam_proj(t_vector_4i *transform)
+void	cam_proj(t_vector_4f *transform)
 {
 	double scale;
 
@@ -35,4 +38,28 @@ void	cam_proj(t_vector_4i *transform)
 
 	transform->vec[0] = transform->vec[0] * scale + (WIN_WIDTH / 2);
 	transform->vec[1] = transform->vec[1] * scale + (WIN_HEIGHT / 2);
+}
+
+void	camera_print(t_camera *camera)
+{
+	printf("Camera\n");
+	printf("[ %3f, %3f, %3f, %3f \n",	camera->proj.matrix[0][0],
+										camera->proj.matrix[0][1],
+										camera->proj.matrix[0][2],
+										camera->proj.matrix[0][3]);
+
+	printf("[ %3f, %3f, %3f, %3f \n",	camera->proj.matrix[1][0],
+										camera->proj.matrix[1][1],
+										camera->proj.matrix[1][2],
+										camera->proj.matrix[1][3]);
+
+	printf("[ %3f, %3f, %3f, %3f \n",	camera->proj.matrix[2][0],
+										camera->proj.matrix[2][1],
+										camera->proj.matrix[2][2],
+										camera->proj.matrix[2][3]);
+
+	printf("[ %3f, %3f, %3f, %3f \n",	camera->proj.matrix[3][0],
+										camera->proj.matrix[3][1],
+										camera->proj.matrix[3][2],
+										camera->proj.matrix[3][3]);
 }

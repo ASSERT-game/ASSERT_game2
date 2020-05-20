@@ -6,42 +6,56 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 00:12:10 by home              #+#    #+#             */
-/*   Updated: 2020/05/17 21:06:58 by home             ###   ########.fr       */
+/*   Updated: 2020/05/20 05:20:02 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "master.h"
 
-void	display_point(t_vector_4i spot, t_camera *camera, t_display *display);
+void	display_point(t_vector_4f spot, t_camera *camera, t_display *display);
 
 void	poll_and_toolbar(t_display *display)
 {
 	bool	quit;
 	SDL_Event	e;
 	t_camera	camera;
-	t_vector_4i	spot1;
-	t_vector_4i	spot2;
-	t_vector_4i	spot3;
-	t_vector_4i	spot4;
+	t_vector_4f	spot1;
+	t_vector_4f	spot2;
+	t_vector_4f	spot3;
+	t_vector_4f	spot4;
 
-	t_vector_4i	spot5;
-	t_vector_4i	spot6;
-	t_vector_4i	spot7;
-	t_vector_4i	spot8;
+	t_vector_4f	spot5;
+	t_vector_4f	spot6;
+	t_vector_4f	spot7;
+	t_vector_4f	spot8;
+
+	t_vector_4f	spot9;
+	t_vector_4f	spot10;
+	t_vector_4f	spot11;
+	t_vector_4f	spot12;
+
+	t_vector_4f	vanishing;
 
 	const Uint8	*keystate;
 
 	quit = false;
 
-	vector4i_fill(&spot1, -100, 200, 50);
-	vector4i_fill(&spot2,  100, 200, 50);
-	vector4i_fill(&spot3, -100,   0, 50);
-	vector4i_fill(&spot4,  100,   0, 50);
+	vector4f_fill(&spot1, -100, 200, 50);
+	vector4f_fill(&spot2,  100, 200, 50);
+	vector4f_fill(&spot3, -100,   0, 50);
+	vector4f_fill(&spot4,  100,   0, 50);
 
-	vector4i_fill(&spot5, -100, 200, 70);
-	vector4i_fill(&spot6,  100, 200, 70);
-	vector4i_fill(&spot7, -100,   0, 70);
-	vector4i_fill(&spot8,  100,   0, 70);
+	vector4f_fill(&spot5, -100, 200, 75);
+	vector4f_fill(&spot6,  100, 200, 75);
+	vector4f_fill(&spot7, -100,   0, 75);
+	vector4f_fill(&spot8,  100,   0, 75);
+
+	vector4f_fill(&spot9,  -100, 200, 120);
+	vector4f_fill(&spot10,  100, 200, 120);
+	vector4f_fill(&spot11, -100,   0, 120);
+	vector4f_fill(&spot12,  100,   0, 120);
+
+	vector4f_fill(&vanishing,  100,   0, 10000);
 
 	init_camera(&camera);
 	apply_background(display->pixels, display->background, display->size);
@@ -62,6 +76,10 @@ void	poll_and_toolbar(t_display *display)
 			camera.proj.matrix[1][3]++;
 		if (keystate[SDL_SCANCODE_S])
 			camera.proj.matrix[1][3]--;
+		if (keystate[SDL_SCANCODE_COMMA])
+			camera.roll++;
+		if (keystate[SDL_SCANCODE_PERIOD])
+			camera.roll--;
 
 		printf("Front Set\n");
 		display_point(spot1, &camera, display);
@@ -69,47 +87,67 @@ void	poll_and_toolbar(t_display *display)
 		display_point(spot3, &camera, display);
 		display_point(spot4, &camera, display);
 
-		printf("Back Set\n'");
+		printf("Back Set\n");
 		display_point(spot5, &camera, display);
 		display_point(spot6, &camera, display);
 		display_point(spot7, &camera, display);
 		display_point(spot8, &camera, display);
+
+		display_point(spot9, &camera, display);
+		display_point(spot10, &camera, display);
+		display_point(spot11, &camera, display);
+		display_point(spot12, &camera, display);
 		printf("END\n");
+
+		display_point(vanishing, &camera, display);
 
 		refresh_display(display);
 	}
 }
 
-void	display_point(t_vector_4i spot, t_camera *camera, t_display *display)
+void	display_point(t_vector_4f spot, t_camera *camera, t_display *display)
 {
-	t_vector_4i	transform;
+	t_vector_4f	transform;
+
+	if (camera->roll == 360)
+		camera->roll = 0;
+	if (camera->roll == -1)
+		camera->roll = 359;
+
+	camera->proj.matrix[0][0] = cos(toRadians(camera->roll));
+	camera->proj.matrix[0][1] = sin(toRadians(camera->roll));
+
+	camera->proj.matrix[1][0] = -sin(toRadians(camera->roll));
+	camera->proj.matrix[1][1] = cos(toRadians(camera->roll));
 
 	matrix_mult(camera->proj, spot, &transform);
 	cam_proj(&transform);
 	draw_point(transform, display);
 
-	vector4i_print(&transform);
+	// vector4f_print(&transform);
 }
 
-void	draw_point(t_vector_4i point, t_display *display)
+void	draw_point(t_vector_4f point, t_display *display)
 {
-	//transform
+	int	i;
+	int	j;
+	int	size;
 
-	int	x_screen;
-	int	y_screen;
-
-	x_screen = point.vec[0];
-	y_screen = point.vec[1];
-
-	color_in((t_point){x_screen - 1, y_screen - 1}, 0xFF0000, display);
-	color_in((t_point){x_screen + 0, y_screen - 1}, 0xFF0000, display);
-	color_in((t_point){x_screen + 1, y_screen - 1}, 0xFF0000, display);
-
-	color_in((t_point){x_screen - 1, y_screen + 0}, 0xFF0000, display);
-	color_in((t_point){x_screen + 0, y_screen + 0}, 0xFF0000, display);
-	color_in((t_point){x_screen + 1, y_screen + 0}, 0xFF0000, display);
-
-	color_in((t_point){x_screen - 1, y_screen + 1}, 0xFF0000, display);
-	color_in((t_point){x_screen + 0, y_screen + 1}, 0xFF0000, display);
-	color_in((t_point){x_screen + 1, y_screen + 1}, 0xFF0000, display);
+	i = 0;
+	size = 3;
+	point.vec[0] -= (size / 2);
+	point.vec[1] -= (size / 2);
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+			color_in(point, 0xFF0000, display);
+			point.vec[1]++;
+			j++;
+		}
+		point.vec[1] -= size;
+		point.vec[0]++;
+		i++;
+	}
 }

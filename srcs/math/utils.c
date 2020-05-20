@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window_config.h                                    :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/07 23:13:44 by home              #+#    #+#             */
-/*   Updated: 2020/05/20 04:28:59 by home             ###   ########.fr       */
+/*   Created: 2020/05/20 03:58:20 by home              #+#    #+#             */
+/*   Updated: 2020/05/20 04:28:48 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WINDOW_CONFIG_H
-# define WINDOW_CONFIG_H
+#include "ft_math.h"
 
-# define WIN_TITLE "GAME"
+double	toRadians(int degree)
+{
+	double angle;
 
-# define WIN_WIDTH 1200
-# define WIN_HEIGHT 900
-
-# define BPP 4
-
-# define CAMERA_DEPTH 50
-
-# define RENDER_DISTANCE 300000
-
-#endif
+	angle = (degree * M_PI) / (180);
+	return (angle);
+}
