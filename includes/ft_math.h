@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 00:07:52 by home              #+#    #+#             */
-/*   Updated: 2020/05/20 05:01:52 by home             ###   ########.fr       */
+/*   Updated: 2020/05/20 08:52:38 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	rect_fill(t_rect *dest, t_point *start, t_point *end);
 void	rect_print(t_rect *rect);
 
 double	toRadians(int degree);
+double	sind(int degree);
+double	cosd(int degree);
 
 void	matrix_mult(t_matrix_4x4f A, t_vector_4f B, t_vector_4f *result);
 

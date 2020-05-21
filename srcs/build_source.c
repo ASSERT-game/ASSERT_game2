@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 00:12:10 by home              #+#    #+#             */
-/*   Updated: 2020/05/20 05:20:02 by home             ###   ########.fr       */
+/*   Updated: 2020/05/20 20:12:24 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,10 @@ void	poll_and_toolbar(t_display *display)
 			camera.roll++;
 		if (keystate[SDL_SCANCODE_PERIOD])
 			camera.roll--;
+		if (keystate[SDL_SCANCODE_SEMICOLON])
+			camera.yaw++;
+		if (keystate[SDL_SCANCODE_L])
+			camera.yaw--;
 
 		printf("Front Set\n");
 		display_point(spot1, &camera, display);
@@ -107,6 +111,8 @@ void	poll_and_toolbar(t_display *display)
 
 void	display_point(t_vector_4f spot, t_camera *camera, t_display *display)
 {
+	int			roll;
+	int			yaw;
 	t_vector_4f	transform;
 
 	if (camera->roll == 360)
@@ -114,11 +120,25 @@ void	display_point(t_vector_4f spot, t_camera *camera, t_display *display)
 	if (camera->roll == -1)
 		camera->roll = 359;
 
-	camera->proj.matrix[0][0] = cos(toRadians(camera->roll));
-	camera->proj.matrix[0][1] = sin(toRadians(camera->roll));
+	if (camera->yaw == 360)
+		camera->yaw = 0;
+	if (camera->yaw == -1)
+		camera->yaw = 359;
 
-	camera->proj.matrix[1][0] = -sin(toRadians(camera->roll));
-	camera->proj.matrix[1][1] = cos(toRadians(camera->roll));
+	yaw = camera->yaw;
+	roll = camera->roll;
+
+	camera->proj.matrix[0][0] = cosd(roll) * cosd(yaw);
+	camera->proj.matrix[0][1] = sind(roll) * cosd(yaw);
+	camera->proj.matrix[0][2] = sind(yaw);
+
+	camera->proj.matrix[1][0] = -sind(roll);
+	camera->proj.matrix[1][1] = cosd(roll);
+	camera->proj.matrix[1][2] = 0;
+
+	camera->proj.matrix[2][0] = -cosd(roll) * sind(yaw);
+	camera->proj.matrix[2][1] = -sind(roll) * sind(yaw);
+	camera->proj.matrix[2][2] = cosd(yaw);
 
 	matrix_mult(camera->proj, spot, &transform);
 	cam_proj(&transform);
