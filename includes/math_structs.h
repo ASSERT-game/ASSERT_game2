@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:45:17 by home              #+#    #+#             */
-/*   Updated: 2020/05/20 04:57:15 by home             ###   ########.fr       */
+/*   Updated: 2020/05/20 23:02:33 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_rect
 typedef struct	s_vector_4f
 {
 	double		vec[4];
+	int			color;
 }				t_vector_4f;
 
 typedef struct	s_matrix_4x4f

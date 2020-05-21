@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:49:36 by home              #+#    #+#             */
-/*   Updated: 2020/05/20 04:57:13 by home             ###   ########.fr       */
+/*   Updated: 2020/05/20 23:09:31 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct	s_display
 	int				size;
 
 	unsigned char	*background;
+	int				*depth_map;
 
 }				t_display;
 

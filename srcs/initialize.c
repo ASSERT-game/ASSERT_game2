@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:24:16 by home              #+#    #+#             */
-/*   Updated: 2020/05/17 20:17:49 by home             ###   ########.fr       */
+/*   Updated: 2020/05/20 23:10:51 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ int		SDLG_setup(t_display *dest)
 
 	dest->window = window;
 	dest->pixels = surface->pixels;
-	dest->background = make_background(0x1ee397, WIN_WIDTH * WIN_HEIGHT);
+	dest->background = make_background(0x000000, WIN_WIDTH * WIN_HEIGHT);
 
 	rect_fill(&dest->shape, &(t_point){0, 0}, &(t_point){WIN_WIDTH, WIN_HEIGHT});
 	dest->width = WIN_WIDTH;
 	dest->height = WIN_HEIGHT;
 	dest->size = dest->width * dest->height;
 
+	dest->depth_map = malloc(sizeof(*(dest->depth_map)) * (dest->size));
 
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 00:07:52 by home              #+#    #+#             */
-/*   Updated: 2020/05/20 08:52:38 by home             ###   ########.fr       */
+/*   Updated: 2020/05/20 22:51:01 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@
 #include "math_structs.h"
 
 void	vector4f_fill(t_vector_4f *dest, int x, int y, int z);
+void	vector4f_fill_c(t_vector_4f *dest, int x, int y, int z, int hex_color);
 void	vector4f_print(t_vector_4f *point);
 
 void	point_fill(t_point *dest, int x, int y);
+void	point_fill_c(t_point *dest, int x, int y, int hex_color);
 void	point_print(t_point *point);
 
 void	rect_update(t_rect *self, void *change);

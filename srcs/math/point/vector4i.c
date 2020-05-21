@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 02:33:29 by home              #+#    #+#             */
-/*   Updated: 2020/05/20 04:57:48 by home             ###   ########.fr       */
+/*   Updated: 2020/05/20 22:50:27 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@ void	vector4f_fill(t_vector_4f *dest, int x, int y, int z)
 	dest->vec[1] = y;
 	dest->vec[2] = z;
 	dest->vec[3] = 1;
+}
+
+void	vector4f_fill_c(t_vector_4f *dest, int x, int y, int z, int hex_color)
+{
+	dest->vec[0] = x;
+	dest->vec[1] = y;
+	dest->vec[2] = z;
+	dest->vec[3] = 1;
+
+	dest->color = hex_color;
 }
 
 void	vector4f_print(t_vector_4f *point)

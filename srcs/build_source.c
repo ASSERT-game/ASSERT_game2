@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 00:12:10 by home              #+#    #+#             */
-/*   Updated: 2020/05/20 20:12:24 by home             ###   ########.fr       */
+/*   Updated: 2020/05/20 23:06:38 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	poll_and_toolbar(t_display *display)
 	bool	quit;
 	SDL_Event	e;
 	t_camera	camera;
+
 	t_vector_4f	spot1;
 	t_vector_4f	spot2;
 	t_vector_4f	spot3;
@@ -40,22 +41,22 @@ void	poll_and_toolbar(t_display *display)
 
 	quit = false;
 
-	vector4f_fill(&spot1, -100, 200, 50);
-	vector4f_fill(&spot2,  100, 200, 50);
-	vector4f_fill(&spot3, -100,   0, 50);
-	vector4f_fill(&spot4,  100,   0, 50);
+	vector4f_fill_c(&spot1, -100, 200, 50, 0xFF0000);
+	vector4f_fill_c(&spot2,  100, 200, 50, 0xFF0000);
+	vector4f_fill_c(&spot3, -100,   0, 50, 0xFF0000);
+	vector4f_fill_c(&spot4,  100,   0, 50, 0xFF0000);
 
-	vector4f_fill(&spot5, -100, 200, 75);
-	vector4f_fill(&spot6,  100, 200, 75);
-	vector4f_fill(&spot7, -100,   0, 75);
-	vector4f_fill(&spot8,  100,   0, 75);
+	vector4f_fill_c(&spot5, -100, 200, 75, 0x00FF00);
+	vector4f_fill_c(&spot6,  100, 200, 75, 0x00FF00);
+	vector4f_fill_c(&spot7, -100,   0, 75, 0x00FF00);
+	vector4f_fill_c(&spot8,  100,   0, 75, 0x00FF00);
 
 	vector4f_fill(&spot9,  -100, 200, 120);
 	vector4f_fill(&spot10,  100, 200, 120);
 	vector4f_fill(&spot11, -100,   0, 120);
 	vector4f_fill(&spot12,  100,   0, 120);
 
-	vector4f_fill(&vanishing,  100,   0, 10000);
+	vector4f_fill_c(&vanishing,  100,   0, 10000, 0xFFFFFF);
 
 	init_camera(&camera);
 	apply_background(display->pixels, display->background, display->size);
@@ -97,11 +98,11 @@ void	poll_and_toolbar(t_display *display)
 		display_point(spot7, &camera, display);
 		display_point(spot8, &camera, display);
 
-		display_point(spot9, &camera, display);
-		display_point(spot10, &camera, display);
-		display_point(spot11, &camera, display);
-		display_point(spot12, &camera, display);
-		printf("END\n");
+		// display_point(spot9, &camera, display);
+		// display_point(spot10, &camera, display);
+		// display_point(spot11, &camera, display);
+		// display_point(spot12, &camera, display);
+		// printf("END\n");
 
 		display_point(vanishing, &camera, display);
 
@@ -142,6 +143,7 @@ void	display_point(t_vector_4f spot, t_camera *camera, t_display *display)
 
 	matrix_mult(camera->proj, spot, &transform);
 	cam_proj(&transform);
+	transform.color = spot.color;
 	draw_point(transform, display);
 
 	// vector4f_print(&transform);
@@ -162,7 +164,7 @@ void	draw_point(t_vector_4f point, t_display *display)
 		j = 0;
 		while (j < size)
 		{
-			color_in(point, 0xFF0000, display);
+			color_in(point, point.color, display);
 			point.vec[1]++;
 			j++;
 		}
