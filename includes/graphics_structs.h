@@ -6,15 +6,16 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:49:36 by home              #+#    #+#             */
-/*   Updated: 2020/05/20 23:09:31 by home             ###   ########.fr       */
+/*   Updated: 2020/05/21 17:44:32 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GRAPHICS_STRUCTS_H
 # define GRAPHICS_STRUCTS_H
 
-#include <SDL2/SDL.h>
-#include "math_structs.h"
+# include <SDL2/SDL.h>
+# include "math_structs.h"
+# include <stdbool.h>
 
 typedef struct	s_display
 {
@@ -28,6 +29,8 @@ typedef struct	s_display
 
 	unsigned char	*background;
 	int				*depth_map;
+
+	bool			active;
 
 }				t_display;
 

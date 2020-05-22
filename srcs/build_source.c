@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 00:12:10 by home              #+#    #+#             */
-/*   Updated: 2020/05/20 23:06:38 by home             ###   ########.fr       */
+/*   Updated: 2020/05/21 20:26:10 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,98 +14,82 @@
 
 void	display_point(t_vector_4f spot, t_camera *camera, t_display *display);
 
+void	fill_cube(t_vector_4f *dest)
+{
+	int	row;
+	int	col;
+
+	row = 0;
+	while (row <= 8)
+	{
+		col = 0;
+		while (col <= 8)
+		{
+			dest[0 * 81 + 9 * row + col].color = 0xFF0000;
+			dest[1 * 81 + 9 * row + col].color = 0xAA0000;
+			dest[2 * 81 + 9 * row + col].color = 0x00FF00;
+			dest[3 * 81 + 9 * row + col].color = 0x00AA00;
+			dest[4 * 81 + 9 * row + col].color = 0x0000FF;
+			dest[5 * 81 + 9 * row + col].color = 0x0000AA;
+
+			dest[0 * 81 + 9 * row + col].vec[0] = -80 + col * 20;
+			dest[1 * 81 + 9 * row + col].vec[0] = -80 + col * 20;
+			dest[2 * 81 + 9 * row + col].vec[0] = -100;
+			dest[3 * 81 + 9 * row + col].vec[0] = 100;
+			dest[4 * 81 + 9 * row + col].vec[0] = -80 + col * 20;
+			dest[5 * 81 + 9 * row + col].vec[0] = -80 + col * 20;
+
+			dest[0 * 81 + 9 * row + col].vec[1] = -80 + row * 20;
+			dest[1 * 81 + 9 * row + col].vec[1] = -80 + row * 20;
+			dest[2 * 81 + 9 * row + col].vec[1] = -80 + col * 20;
+			dest[3 * 81 + 9 * row + col].vec[1] = -80 + col * 20;
+			dest[4 * 81 + 9 * row + col].vec[1] = 100;
+			dest[5 * 81 + 9 * row + col].vec[1] = -100;
+
+			dest[0 * 81 + 9 * row + col].vec[2] = 30 + 0;
+			dest[1 * 81 + 9 * row + col].vec[2] = 30 + 200;
+			dest[2 * 81 + 9 * row + col].vec[2] = 30 + 20 + row * 20;
+			dest[3 * 81 + 9 * row + col].vec[2] = 30 + 20 + row * 20;
+			dest[4 * 81 + 9 * row + col].vec[2] = 30 + 20 + row * 20;
+			dest[5 * 81 + 9 * row + col].vec[2] = 30 + 20 + row * 20;
+
+			dest[0 * 81 + 9 * row + col].vec[3] = 1;
+			dest[1 * 81 + 9 * row + col].vec[3] = 1;
+			dest[2 * 81 + 9 * row + col].vec[3] = 1;
+			dest[3 * 81 + 9 * row + col].vec[3] = 1;
+			dest[4 * 81 + 9 * row + col].vec[3] = 1;
+			dest[5 * 81 + 9 * row + col].vec[3] = 1;
+
+			col++;
+		}
+		row++;
+	}
+}
+
 void	poll_and_toolbar(t_display *display)
 {
-	bool	quit;
-	SDL_Event	e;
+	int			i;
 	t_camera	camera;
 
-	t_vector_4f	spot1;
-	t_vector_4f	spot2;
-	t_vector_4f	spot3;
-	t_vector_4f	spot4;
-
-	t_vector_4f	spot5;
-	t_vector_4f	spot6;
-	t_vector_4f	spot7;
-	t_vector_4f	spot8;
-
-	t_vector_4f	spot9;
-	t_vector_4f	spot10;
-	t_vector_4f	spot11;
-	t_vector_4f	spot12;
-
+	t_vector_4f	*cube;
 	t_vector_4f	vanishing;
 
-	const Uint8	*keystate;
-
-	quit = false;
-
-	vector4f_fill_c(&spot1, -100, 200, 50, 0xFF0000);
-	vector4f_fill_c(&spot2,  100, 200, 50, 0xFF0000);
-	vector4f_fill_c(&spot3, -100,   0, 50, 0xFF0000);
-	vector4f_fill_c(&spot4,  100,   0, 50, 0xFF0000);
-
-	vector4f_fill_c(&spot5, -100, 200, 75, 0x00FF00);
-	vector4f_fill_c(&spot6,  100, 200, 75, 0x00FF00);
-	vector4f_fill_c(&spot7, -100,   0, 75, 0x00FF00);
-	vector4f_fill_c(&spot8,  100,   0, 75, 0x00FF00);
-
-	vector4f_fill(&spot9,  -100, 200, 120);
-	vector4f_fill(&spot10,  100, 200, 120);
-	vector4f_fill(&spot11, -100,   0, 120);
-	vector4f_fill(&spot12,  100,   0, 120);
-
-	vector4f_fill_c(&vanishing,  100,   0, 10000, 0xFFFFFF);
-
 	init_camera(&camera);
-	apply_background(display->pixels, display->background, display->size);
-
-	while(!quit)
+	vector4f_fill_c(&vanishing,  100,   0, 10000, 0xFFFFFF);
+	cube = malloc(sizeof(*cube) * (81 * 6));
+	fill_cube(cube);
+	while(display->active == true)
 	{
-		while(SDL_PollEvent(&e) != 0)
+		update_state(display, &camera);
+		i = 0;
+		while (i < 81 * 6)
 		{
-			if(e.type == SDL_QUIT)
-				quit = true;
+			// vector4f_print(&cube[i]);
+			display_point(cube[i], &camera, display);
+			i++;
 		}
-		keystate = SDL_GetKeyboardState(NULL);
-		if (keystate[SDL_SCANCODE_D])
-			camera.proj.matrix[0][3]--;
-		if (keystate[SDL_SCANCODE_A])
-			camera.proj.matrix[0][3]++;
-		if (keystate[SDL_SCANCODE_W])
-			camera.proj.matrix[1][3]++;
-		if (keystate[SDL_SCANCODE_S])
-			camera.proj.matrix[1][3]--;
-		if (keystate[SDL_SCANCODE_COMMA])
-			camera.roll++;
-		if (keystate[SDL_SCANCODE_PERIOD])
-			camera.roll--;
-		if (keystate[SDL_SCANCODE_SEMICOLON])
-			camera.yaw++;
-		if (keystate[SDL_SCANCODE_L])
-			camera.yaw--;
-
-		printf("Front Set\n");
-		display_point(spot1, &camera, display);
-		display_point(spot2, &camera, display);
-		display_point(spot3, &camera, display);
-		display_point(spot4, &camera, display);
-
-		printf("Back Set\n");
-		display_point(spot5, &camera, display);
-		display_point(spot6, &camera, display);
-		display_point(spot7, &camera, display);
-		display_point(spot8, &camera, display);
-
-		// display_point(spot9, &camera, display);
-		// display_point(spot10, &camera, display);
-		// display_point(spot11, &camera, display);
-		// display_point(spot12, &camera, display);
-		// printf("END\n");
 
 		display_point(vanishing, &camera, display);
-
 		refresh_display(display);
 	}
 }

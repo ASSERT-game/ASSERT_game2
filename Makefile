@@ -6,7 +6,7 @@
 #    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/06 17:51:42 by home              #+#    #+#              #
-#    Updated: 2020/05/20 04:25:06 by home             ###   ########.fr        #
+#    Updated: 2020/05/21 17:44:59 by home             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ RENDER_NAMES = \
 
 SRCS_NAMES = \
 	build_source \
+	game_input \
 	initialize \
 	main \
 

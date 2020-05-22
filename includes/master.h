@@ -6,14 +6,13 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:55:52 by home              #+#    #+#             */
-/*   Updated: 2020/05/20 04:56:07 by home             ###   ########.fr       */
+/*   Updated: 2020/05/21 17:53:48 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MASTER_H
 # define MASTER_H
 
-# include <stdbool.h>
 # include <string.h>
 # include <strings.h>
 
@@ -29,6 +28,7 @@ void			color_in(t_vector_4f point, int color, t_display *display);
 void			draw_point(t_vector_4f point, t_display *display);
 
 void			poll_and_toolbar(t_display *display);
+void			update_state(t_display *display, t_camera *camera);
 
 int				SDLG_setup(t_display *dest);
 
