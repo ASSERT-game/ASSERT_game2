@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 00:12:10 by home              #+#    #+#             */
-/*   Updated: 2020/05/21 20:26:10 by home             ###   ########.fr       */
+/*   Updated: 2020/05/22 00:26:49 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,51 +14,58 @@
 
 void	display_point(t_vector_4f spot, t_camera *camera, t_display *display);
 
-void	fill_cube(t_vector_4f *dest)
+void	fill_cube(t_vector_4f *dest, int size)
 {
 	int	row;
 	int	col;
 
+	int	delta;
+	int	edge;
+	int	face;
+
+	edge = size - 1;
+	face = edge * edge;
+	delta = 200 / (size);
 	row = 0;
-	while (row <= 8)
+	while (row <= size - 2)
 	{
 		col = 0;
-		while (col <= 8)
+		while (col <= size - 2)
 		{
-			dest[0 * 81 + 9 * row + col].color = 0xFF0000;
-			dest[1 * 81 + 9 * row + col].color = 0xAA0000;
-			dest[2 * 81 + 9 * row + col].color = 0x00FF00;
-			dest[3 * 81 + 9 * row + col].color = 0x00AA00;
-			dest[4 * 81 + 9 * row + col].color = 0x0000FF;
-			dest[5 * 81 + 9 * row + col].color = 0x0000AA;
+			dest[0 * (face) + (edge) * row + col].color = 0xFF0000;
+			dest[1 * (face) + (edge) * row + col].color = 0x550000;
+			dest[2 * (face) + (edge) * row + col].color = 0x00FF00;
+			dest[3 * (face) + (edge) * row + col].color = 0x005500;
+			dest[4 * (face) + (edge) * row + col].color = 0x0000FF;
+			dest[5 * (face) + (edge) * row + col].color = 0x000055;
 
-			dest[0 * 81 + 9 * row + col].vec[0] = -80 + col * 20;
-			dest[1 * 81 + 9 * row + col].vec[0] = -80 + col * 20;
-			dest[2 * 81 + 9 * row + col].vec[0] = -100;
-			dest[3 * 81 + 9 * row + col].vec[0] = 100;
-			dest[4 * 81 + 9 * row + col].vec[0] = -80 + col * 20;
-			dest[5 * 81 + 9 * row + col].vec[0] = -80 + col * 20;
+			dest[0 * (face) + (edge) * row + col].vec[0] = -100 + delta + col * delta;
+			dest[1 * (face) + (edge) * row + col].vec[0] = -100 + delta + col * delta;
+			dest[2 * (face) + (edge) * row + col].vec[0] = -100;
+			dest[3 * (face) + (edge) * row + col].vec[0] = 100;
+			dest[4 * (face) + (edge) * row + col].vec[0] = -100 + delta + col * delta;
+			dest[5 * (face) + (edge) * row + col].vec[0] = -100 + delta + col * delta;
 
-			dest[0 * 81 + 9 * row + col].vec[1] = -80 + row * 20;
-			dest[1 * 81 + 9 * row + col].vec[1] = -80 + row * 20;
-			dest[2 * 81 + 9 * row + col].vec[1] = -80 + col * 20;
-			dest[3 * 81 + 9 * row + col].vec[1] = -80 + col * 20;
-			dest[4 * 81 + 9 * row + col].vec[1] = 100;
-			dest[5 * 81 + 9 * row + col].vec[1] = -100;
+			dest[0 * (face) + (edge) * row + col].vec[1] = -100 + delta + row * delta;
+			dest[1 * (face) + (edge) * row + col].vec[1] = -100 + delta + row * delta;
+			dest[2 * (face) + (edge) * row + col].vec[1] = -100 + delta + col * delta;
+			dest[3 * (face) + (edge) * row + col].vec[1] = -100 + delta + col * delta;
+			dest[4 * (face) + (edge) * row + col].vec[1] = 100;
+			dest[5 * (face) + (edge) * row + col].vec[1] = -100;
 
-			dest[0 * 81 + 9 * row + col].vec[2] = 30 + 0;
-			dest[1 * 81 + 9 * row + col].vec[2] = 30 + 200;
-			dest[2 * 81 + 9 * row + col].vec[2] = 30 + 20 + row * 20;
-			dest[3 * 81 + 9 * row + col].vec[2] = 30 + 20 + row * 20;
-			dest[4 * 81 + 9 * row + col].vec[2] = 30 + 20 + row * 20;
-			dest[5 * 81 + 9 * row + col].vec[2] = 30 + 20 + row * 20;
+			dest[0 * (face) + (edge) * row + col].vec[2] = 130 + 0;
+			dest[1 * (face) + (edge) * row + col].vec[2] = 130 + 200;
+			dest[2 * (face) + (edge) * row + col].vec[2] = 130 + delta + row * delta;
+			dest[3 * (face) + (edge) * row + col].vec[2] = 130 + delta + row * delta;
+			dest[4 * (face) + (edge) * row + col].vec[2] = 130 + delta + row * delta;
+			dest[5 * (face) + (edge) * row + col].vec[2] = 130 + delta + row * delta;
 
-			dest[0 * 81 + 9 * row + col].vec[3] = 1;
-			dest[1 * 81 + 9 * row + col].vec[3] = 1;
-			dest[2 * 81 + 9 * row + col].vec[3] = 1;
-			dest[3 * 81 + 9 * row + col].vec[3] = 1;
-			dest[4 * 81 + 9 * row + col].vec[3] = 1;
-			dest[5 * 81 + 9 * row + col].vec[3] = 1;
+			dest[0 * (face) + (edge) * row + col].vec[3] = 1;
+			dest[1 * (face) + (edge) * row + col].vec[3] = 1;
+			dest[2 * (face) + (edge) * row + col].vec[3] = 1;
+			dest[3 * (face) + (edge) * row + col].vec[3] = 1;
+			dest[4 * (face) + (edge) * row + col].vec[3] = 1;
+			dest[5 * (face) + (edge) * row + col].vec[3] = 1;
 
 			col++;
 		}
@@ -69,20 +76,22 @@ void	fill_cube(t_vector_4f *dest)
 void	poll_and_toolbar(t_display *display)
 {
 	int			i;
+	int			size;
 	t_camera	camera;
 
 	t_vector_4f	*cube;
 	t_vector_4f	vanishing;
 
+	size = 40;
 	init_camera(&camera);
 	vector4f_fill_c(&vanishing,  100,   0, 10000, 0xFFFFFF);
-	cube = malloc(sizeof(*cube) * (81 * 6));
-	fill_cube(cube);
+	cube = malloc(sizeof(*cube) * ((size * size) * 6));
+	fill_cube(cube, size);
 	while(display->active == true)
 	{
 		update_state(display, &camera);
 		i = 0;
-		while (i < 81 * 6)
+		while (i < ((size - 1) * (size - 1)) * 6)
 		{
 			// vector4f_print(&cube[i]);
 			display_point(cube[i], &camera, display);

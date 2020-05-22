@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 17:41:20 by home              #+#    #+#             */
-/*   Updated: 2020/05/21 17:52:41 by home             ###   ########.fr       */
+/*   Updated: 2020/05/21 21:07:34 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ void	update_state(t_display *display, t_camera *camera)
 	if (keystate[SDL_SCANCODE_A])
 		camera->proj.matrix[0][3]++;
 	if (keystate[SDL_SCANCODE_W])
-		camera->proj.matrix[1][3]++;
+		camera->proj.matrix[2][3]--;
 	if (keystate[SDL_SCANCODE_S])
-		camera->proj.matrix[1][3]--;
+		camera->proj.matrix[2][3]++;
+
 	if (keystate[SDL_SCANCODE_COMMA])
 		camera->roll++;
 	if (keystate[SDL_SCANCODE_PERIOD])
