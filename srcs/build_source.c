@@ -6,76 +6,22 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 00:12:10 by home              #+#    #+#             */
-/*   Updated: 2020/05/26 00:17:08 by home             ###   ########.fr       */
+/*   Updated: 2020/05/26 04:40:16 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "master.h"
 
-void	display_point(t_vector_4f spot, t_camera *camera, t_display *display);
-
-void	fill_cube(t_vector_4f *dest, int size)
+void	fill_render_primitive(t_render_primative *dest,
+	t_vector_4f A, t_vector_4f B, t_vector_4f C)
 {
-	int	row;
-	int	col;
-
-	int	delta;
-	int	edge;
-	int	face;
-
-	edge = size - 1;
-	face = edge * edge;
-	delta = 200 / (size);
-	row = 0;
-	while (row <= size - 2)
-	{
-		col = 0;
-		while (col <= size - 2)
-		{
-			dest[0 * (face) + (edge) * row + col].color = 0xFF0000;
-			dest[1 * (face) + (edge) * row + col].color = 0x550000;
-			dest[2 * (face) + (edge) * row + col].color = 0x00FF00;
-			dest[3 * (face) + (edge) * row + col].color = 0x005500;
-			dest[4 * (face) + (edge) * row + col].color = 0x0000FF;
-			dest[5 * (face) + (edge) * row + col].color = 0x000055;
-
-			dest[0 * (face) + (edge) * row + col].vec[0] = -100 + delta + col * delta;
-			dest[1 * (face) + (edge) * row + col].vec[0] = -100 + delta + col * delta;
-			dest[2 * (face) + (edge) * row + col].vec[0] = -100;
-			dest[3 * (face) + (edge) * row + col].vec[0] = 100;
-			dest[4 * (face) + (edge) * row + col].vec[0] = -100 + delta + col * delta;
-			dest[5 * (face) + (edge) * row + col].vec[0] = -100 + delta + col * delta;
-
-			dest[0 * (face) + (edge) * row + col].vec[1] = 0 + delta + row * delta;
-			dest[1 * (face) + (edge) * row + col].vec[1] = 0 + delta + row * delta;
-			dest[2 * (face) + (edge) * row + col].vec[1] = 0 + delta + col * delta;
-			dest[3 * (face) + (edge) * row + col].vec[1] = 0 + delta + col * delta;
-			dest[4 * (face) + (edge) * row + col].vec[1] = 200;
-			dest[5 * (face) + (edge) * row + col].vec[1] = 0;
-
-			dest[0 * (face) + (edge) * row + col].vec[2] = 130 + 0;
-			dest[1 * (face) + (edge) * row + col].vec[2] = 130 + 200;
-			dest[2 * (face) + (edge) * row + col].vec[2] = 130 + delta + row * delta;
-			dest[3 * (face) + (edge) * row + col].vec[2] = 130 + delta + row * delta;
-			dest[4 * (face) + (edge) * row + col].vec[2] = 130 + delta + row * delta;
-			dest[5 * (face) + (edge) * row + col].vec[2] = 130 + delta + row * delta;
-
-			dest[0 * (face) + (edge) * row + col].vec[3] = 1;
-			dest[1 * (face) + (edge) * row + col].vec[3] = 1;
-			dest[2 * (face) + (edge) * row + col].vec[3] = 1;
-			dest[3 * (face) + (edge) * row + col].vec[3] = 1;
-			dest[4 * (face) + (edge) * row + col].vec[3] = 1;
-			dest[5 * (face) + (edge) * row + col].vec[3] = 1;
-
-			col++;
-		}
-		row++;
-	}
+	dest->A = A;
+	dest->B = B;
+	dest->C = C;
 }
 
 void	poll_and_toolbar(t_display *display)
 {
-	int			i;
 	int			size;
 	t_camera	camera;
 
@@ -83,29 +29,29 @@ void	poll_and_toolbar(t_display *display)
 	t_vector_4f	vanishing;
 	t_vector_4f	origin;
 
+	t_render_primative	triangle;
+
 	size = 40;
 	init_camera(&camera);
 	vector4f_fill_c(&vanishing,  100,   0, 10000, 0xFFFFFF);
 	vector4f_fill_c(&origin,       0,   0,     0, 0x0000FF);
+
+	fill_render_primitive(&triangle,
+						(t_vector_4f){{  0,   0, 10, 0}, 0x42f5dd},
+						(t_vector_4f){{100, 100, 25, 0}, 0x42f5dd},
+						(t_vector_4f){{150, 100, 50, 0}, 0x42f5dd});
+
 	cube = malloc(sizeof(*cube) * ((size * size) * 6));
 	fill_cube(cube, size);
 	while(display->active == true)
 	{
 		update_state(display, &camera);
-		i = 0;
-		while (i < ((size - 1) * (size - 1)) * 6)
-		{
-			// vector4f_print(&cube[i]);
-			display_point(cube[i], &camera, display);
-			i++;
-		}
-
+		rasterize_triangle(&triangle, &camera, display);
+		draw_cube(&camera, display, cube, size);
 		display_point(vanishing, &camera, display);
 		display_point(origin, &camera, display);
 		refresh_display(display);
 	}
-
-	(void)i;
 }
 
 void	display_point(t_vector_4f spot, t_camera *camera, t_display *display)

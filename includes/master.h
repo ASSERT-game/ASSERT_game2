@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:55:52 by home              #+#    #+#             */
-/*   Updated: 2020/05/21 17:53:48 by home             ###   ########.fr       */
+/*   Updated: 2020/05/26 01:31:13 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,10 @@ void			cam_proj(t_vector_4f *transform);
 void			refresh_display(t_display *display);
 void			apply_background(unsigned char *dest, unsigned char *source, int pixels);
 unsigned char	*make_background(int color, int total_pixels);
+
+void			fill_cube(t_vector_4f *dest, int size);
+void			draw_cube(t_camera *camera, t_display *display, t_vector_4f *cube, int size);
+void			display_point(t_vector_4f spot, t_camera *camera, t_display *display);
+void			rasterize_triangle(t_render_primative *triangle, t_camera *camera, t_display *display);
 
 #endif

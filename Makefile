@@ -6,7 +6,7 @@
 #    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/06 17:51:42 by home              #+#    #+#              #
-#    Updated: 2020/05/25 20:24:25 by home             ###   ########.fr        #
+#    Updated: 2020/05/26 01:15:33 by home             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,10 +41,12 @@ RENDER_NAMES = \
 	background \
 	camera \
 	pixels \
+	rasterizer \
 	render \
 
 SRCS_NAMES = \
 	build_source \
+	cube \
 	game_input \
 	initialize \
 	main \
