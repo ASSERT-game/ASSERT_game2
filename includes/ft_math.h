@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 00:07:52 by home              #+#    #+#             */
-/*   Updated: 2020/05/20 22:51:01 by home             ###   ########.fr       */
+/*   Updated: 2020/05/25 20:06:36 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ double	sind(int degree);
 double	cosd(int degree);
 
 void	matrix_mult(t_matrix_4x4f A, t_vector_4f B, t_vector_4f *result);
+void	matrix_mult_rel(t_matrix_4x4f A, t_vector_4f B, t_vector_4f *result);
 
 #endif

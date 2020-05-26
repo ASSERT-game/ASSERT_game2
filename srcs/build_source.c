@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 00:12:10 by home              #+#    #+#             */
-/*   Updated: 2020/05/22 00:26:49 by home             ###   ########.fr       */
+/*   Updated: 2020/05/26 00:17:08 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ void	fill_cube(t_vector_4f *dest, int size)
 			dest[4 * (face) + (edge) * row + col].vec[0] = -100 + delta + col * delta;
 			dest[5 * (face) + (edge) * row + col].vec[0] = -100 + delta + col * delta;
 
-			dest[0 * (face) + (edge) * row + col].vec[1] = -100 + delta + row * delta;
-			dest[1 * (face) + (edge) * row + col].vec[1] = -100 + delta + row * delta;
-			dest[2 * (face) + (edge) * row + col].vec[1] = -100 + delta + col * delta;
-			dest[3 * (face) + (edge) * row + col].vec[1] = -100 + delta + col * delta;
-			dest[4 * (face) + (edge) * row + col].vec[1] = 100;
-			dest[5 * (face) + (edge) * row + col].vec[1] = -100;
+			dest[0 * (face) + (edge) * row + col].vec[1] = 0 + delta + row * delta;
+			dest[1 * (face) + (edge) * row + col].vec[1] = 0 + delta + row * delta;
+			dest[2 * (face) + (edge) * row + col].vec[1] = 0 + delta + col * delta;
+			dest[3 * (face) + (edge) * row + col].vec[1] = 0 + delta + col * delta;
+			dest[4 * (face) + (edge) * row + col].vec[1] = 200;
+			dest[5 * (face) + (edge) * row + col].vec[1] = 0;
 
 			dest[0 * (face) + (edge) * row + col].vec[2] = 130 + 0;
 			dest[1 * (face) + (edge) * row + col].vec[2] = 130 + 200;
@@ -81,10 +81,12 @@ void	poll_and_toolbar(t_display *display)
 
 	t_vector_4f	*cube;
 	t_vector_4f	vanishing;
+	t_vector_4f	origin;
 
 	size = 40;
 	init_camera(&camera);
 	vector4f_fill_c(&vanishing,  100,   0, 10000, 0xFFFFFF);
+	vector4f_fill_c(&origin,       0,   0,     0, 0x0000FF);
 	cube = malloc(sizeof(*cube) * ((size * size) * 6));
 	fill_cube(cube, size);
 	while(display->active == true)
@@ -99,8 +101,11 @@ void	poll_and_toolbar(t_display *display)
 		}
 
 		display_point(vanishing, &camera, display);
+		display_point(origin, &camera, display);
 		refresh_display(display);
 	}
+
+	(void)i;
 }
 
 void	display_point(t_vector_4f spot, t_camera *camera, t_display *display)
@@ -134,7 +139,12 @@ void	display_point(t_vector_4f spot, t_camera *camera, t_display *display)
 	camera->proj.matrix[2][1] = -sind(roll) * sind(yaw);
 	camera->proj.matrix[2][2] = cosd(yaw);
 
-	matrix_mult(camera->proj, spot, &transform);
+	spot.vec[0] -= camera->proj.matrix[0][3];
+	spot.vec[1] -= camera->proj.matrix[1][3];
+	spot.vec[2] -= camera->proj.matrix[2][3];
+
+	matrix_mult_rel(camera->proj, spot, &transform);
+
 	cam_proj(&transform);
 	transform.color = spot.color;
 	draw_point(transform, display);

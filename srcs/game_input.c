@@ -6,11 +6,15 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 17:41:20 by home              #+#    #+#             */
-/*   Updated: 2020/05/21 21:07:34 by home             ###   ########.fr       */
+/*   Updated: 2020/05/26 00:16:49 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "master.h"
+
+#define WALK_SPEED 15
+#define STRAFE_BIAS 1.75
+#define ROTATION_SPEED 3
 
 void	update_state(t_display *display, t_camera *camera)
 {
@@ -24,20 +28,37 @@ void	update_state(t_display *display, t_camera *camera)
 	}
 	keystate = SDL_GetKeyboardState(NULL);
 	if (keystate[SDL_SCANCODE_D])
-		camera->proj.matrix[0][3]--;
+	{
+		camera->proj.matrix[0][3] += WALK_SPEED * cosd(camera->yaw) * STRAFE_BIAS;
+		camera->proj.matrix[2][3] += WALK_SPEED * sind(camera->yaw) * STRAFE_BIAS;
+	}
 	if (keystate[SDL_SCANCODE_A])
-		camera->proj.matrix[0][3]++;
-	if (keystate[SDL_SCANCODE_W])
-		camera->proj.matrix[2][3]--;
-	if (keystate[SDL_SCANCODE_S])
-		camera->proj.matrix[2][3]++;
+	{
+		camera->proj.matrix[0][3] -= WALK_SPEED * cosd(camera->yaw) * STRAFE_BIAS;
+		camera->proj.matrix[2][3] -= WALK_SPEED * sind(camera->yaw) * STRAFE_BIAS;
+	}
 
+	if (keystate[SDL_SCANCODE_W])
+	{
+		camera->proj.matrix[0][3] += WALK_SPEED * cosd(camera->yaw + 90);
+		camera->proj.matrix[2][3] += WALK_SPEED * sind(camera->yaw + 90);
+	}
+	if (keystate[SDL_SCANCODE_S])
+	{
+		camera->proj.matrix[0][3] -= WALK_SPEED * cosd(camera->yaw + 90);
+		camera->proj.matrix[2][3] -= WALK_SPEED * sind(camera->yaw + 90);
+	}
+
+	// if (keystate[SDL_SCANCODE_COMMA])
+	// 	camera->roll += ROTATION_SPEED;
+	// if (keystate[SDL_SCANCODE_PERIOD])
+	// 	camera->roll -= ROTATION_SPEED;
+	// if (keystate[SDL_SCANCODE_SEMICOLON])
+	// 	camera->yaw += ROTATION_SPEED;
+	// if (keystate[SDL_SCANCODE_L])
+	// 	camera->yaw -= ROTATION_SPEED;
 	if (keystate[SDL_SCANCODE_COMMA])
-		camera->roll++;
+		camera->yaw -= ROTATION_SPEED;
 	if (keystate[SDL_SCANCODE_PERIOD])
-		camera->roll--;
-	if (keystate[SDL_SCANCODE_SEMICOLON])
-		camera->yaw++;
-	if (keystate[SDL_SCANCODE_L])
-		camera->yaw--;
+		camera->yaw += ROTATION_SPEED;
 }
