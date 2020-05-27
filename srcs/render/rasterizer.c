@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 01:13:41 by home              #+#    #+#             */
-/*   Updated: 2020/05/27 16:12:56 by home             ###   ########.fr       */
+/*   Updated: 2020/05/27 16:36:37 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,49 @@ void	create_line(t_vector_4f *p1, t_vector_4f *p2, double *m, double *h, double 
 	*k = (p1->vec[1]);
 }
 
-bool		inside_screen_triangle(t_render_primative *triangle, int x, int y)
+#define LESS_THAN -1
+#define GREATER_THAN 1
+
+bool		inequality_match(double m, double h, double k, t_vector_4f p1, t_vector_4f p2)
 {
 	bool	result;
-	double	m;
-	double	h;
-	double	k;
+	int		side;
+	double	y;
 
-	create_line(&(triangle->A), &(triangle->B), &m, &h, &k);
+	side = GREATER_THAN;
+	y = m * (p1.vec[0] - h) + k;
+	if (y <= p1.vec[1])
+		side = LESS_THAN;
 
 	result = false;
-	if (x < y)
+	y = m * (p2.vec[0] - h) + k;
+	if (side == LESS_THAN && y <= p2.vec[1])
 		result = true;
+	if (side == GREATER_THAN && y <= p2.vec[1])
+		result = true;
+	return (result);
+}
+
+bool		inside_screen_triangle(t_render_primative *triangle, int x, int y)
+{
+	bool		result;
+	t_vector_4f	test;
+	double		m;
+	double		h;
+	double		k;
+
+	result = true;
+	test.vec[0] = x;
+	test.vec[1] = y;
+
+	create_line(&(triangle->screen_A), &(triangle->screen_B), &m, &h, &k);
+	result &= inequality_match(m, h, k, triangle->screen_C, test);
+
+	create_line(&(triangle->screen_B), &(triangle->screen_C), &m, &h, &k);
+	result &= inequality_match(m, h, k, triangle->screen_A, test);
+
+	create_line(&(triangle->screen_C), &(triangle->screen_A), &m, &h, &k);
+	result &= inequality_match(m, h, k, triangle->screen_B, test);
 
 	return (result);
 }
@@ -81,6 +112,28 @@ void	rasterize_triangle(t_render_primative *triangle, t_camera *camera, t_displa
 		triangle_area.end.y = WIN_WIDTH;
 
 	rect_print(&triangle_area);
+
+	int			i;
+	int			j;
+	t_vector_4f	pixel;
+
+	i = triangle_area.start.x;
+	while (i < triangle_area.end.x)
+	{
+		j = triangle_area.start.y;
+		while (j < triangle_area.end.y)
+		{
+			if (inside_screen_triangle(triangle, i, j) == true)
+			{
+				pixel.vec[0] = i;
+				pixel.vec[1] = j;
+				pixel.vec[2] = 20;
+				color_in(pixel, 0x858585, display);
+			}
+			j++;
+		}
+		i++;
+	}
 
 	draw_point(triangle->screen_A, display);
 	draw_point(triangle->screen_B, display);
