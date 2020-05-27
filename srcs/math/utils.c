@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 03:58:20 by home              #+#    #+#             */
-/*   Updated: 2020/05/20 08:52:52 by home             ###   ########.fr       */
+/*   Updated: 2020/05/26 21:46:08 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,28 @@ double	cosd(int degree)
 
 	radian = toRadians(degree);
 	return (cos(radian));
+}
+
+double		min_of_threef(double a, double b, double c)
+{
+	double	result;
+
+	result = a;
+	if (result > b)
+		result = b;
+	if (result > c)
+		result = c;
+	return (result);
+}
+
+double		max_of_threef(double a, double b, double c)
+{
+	double	result;
+
+	result = a;
+	if (result < b)
+		result = b;
+	if (result > c)
+		result = c;
+	return (result);
 }

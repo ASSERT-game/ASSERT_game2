@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 00:07:52 by home              #+#    #+#             */
-/*   Updated: 2020/05/25 20:06:36 by home             ###   ########.fr       */
+/*   Updated: 2020/05/26 21:42:48 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 void	vector4f_fill(t_vector_4f *dest, int x, int y, int z);
 void	vector4f_fill_c(t_vector_4f *dest, int x, int y, int z, int hex_color);
+void	vector4f_subtract(t_vector_4f *start, t_vector_4f *minus, t_vector_4f *dest);
 void	vector4f_print(t_vector_4f *point);
 
 void	point_fill(t_point *dest, int x, int y);
@@ -33,6 +34,9 @@ void	rect_print(t_rect *rect);
 double	toRadians(int degree);
 double	sind(int degree);
 double	cosd(int degree);
+
+double		min_of_threef(double a, double b, double c);
+double		max_of_threef(double a, double b, double c);
 
 void	matrix_mult(t_matrix_4x4f A, t_vector_4f B, t_vector_4f *result);
 void	matrix_mult_rel(t_matrix_4x4f A, t_vector_4f B, t_vector_4f *result);

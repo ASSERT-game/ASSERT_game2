@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 01:59:06 by home              #+#    #+#             */
-/*   Updated: 2020/05/26 00:07:03 by home             ###   ########.fr       */
+/*   Updated: 2020/05/26 18:07:32 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,37 @@ void	cam_proj(t_vector_4f *transform)
 
 	transform->vec[0] = (transform->vec[0] * scale + (WIN_WIDTH / 2));
 	transform->vec[1] = WIN_HEIGHT - (transform->vec[1] * scale + (WIN_HEIGHT / 2));
+}
+
+void	camera_update(t_camera *camera)
+{
+	int	roll;
+	int	yaw;
+
+	if (camera->roll == 360)
+		camera->roll = 0;
+	if (camera->roll == -1)
+		camera->roll = 359;
+
+	if (camera->yaw == 360)
+		camera->yaw = 0;
+	if (camera->yaw == -1)
+		camera->yaw = 359;
+
+	yaw = camera->yaw;
+	roll = camera->roll;
+
+	camera->proj.matrix[0][0] = cosd(roll) * cosd(yaw);
+	camera->proj.matrix[0][1] = sind(roll) * cosd(yaw);
+	camera->proj.matrix[0][2] = sind(yaw);
+
+	camera->proj.matrix[1][0] = -sind(roll);
+	camera->proj.matrix[1][1] = cosd(roll);
+	camera->proj.matrix[1][2] = 0;
+
+	camera->proj.matrix[2][0] = -cosd(roll) * sind(yaw);
+	camera->proj.matrix[2][1] = -sind(roll) * sind(yaw);
+	camera->proj.matrix[2][2] = cosd(yaw);
 }
 
 void	camera_print(t_camera *camera)

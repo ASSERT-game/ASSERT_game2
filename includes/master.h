@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:55:52 by home              #+#    #+#             */
-/*   Updated: 2020/05/26 01:31:13 by home             ###   ########.fr       */
+/*   Updated: 2020/05/26 18:09:18 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void			update_state(t_display *display, t_camera *camera);
 int				SDLG_setup(t_display *dest);
 
 void			init_camera(t_camera *dest);
+void			camera_update(t_camera *camera);
 void			cam_proj(t_vector_4f *transform);
 
 void			refresh_display(t_display *display);
