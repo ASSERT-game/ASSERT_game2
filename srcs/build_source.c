@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 00:12:10 by home              #+#    #+#             */
-/*   Updated: 2020/05/27 18:43:05 by home             ###   ########.fr       */
+/*   Updated: 2020/05/28 20:54:47 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	poll_and_toolbar(t_display *display)
 	{
 		update_state(display, &camera);
 		camera_update(&camera);
-		rasterize_triangle(&triangle, &camera, display);
+		// rasterize_triangle(&triangle, &camera, display);
 		draw_cube(&camera, display, cube, size);
 		display_point(vanishing, &camera, display);
 		display_point(origin, &camera, display);

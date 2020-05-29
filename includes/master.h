@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:55:52 by home              #+#    #+#             */
-/*   Updated: 2020/05/26 18:09:18 by home             ###   ########.fr       */
+/*   Updated: 2020/05/29 14:39:17 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <string.h>
 # include <strings.h>
 
-# include "debug.h"
 # include "graphics_structs.h"
 # include "ft_math.h"
 # include "window_config.h"

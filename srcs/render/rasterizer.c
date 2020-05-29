@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 01:13:41 by home              #+#    #+#             */
-/*   Updated: 2020/05/28 18:57:19 by home             ###   ########.fr       */
+/*   Updated: 2020/05/28 20:53:53 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void	convert_to_frame_of_reference(t_render_primative *triangle, t_camera *frame
 		triangle->screen_B.vec[0] *= -1;
 		triangle->screen_B.vec[0] -= WIN_WIDTH;
 		// triangle->screen_B.vec[1] *= -1;
-		triangle->screen_B.vec[1] = -100;
+		triangle->screen_B.vec[1] = -WIN_HEIGHT;
 	}
 
-	printf("New SET\n");
-	vector4f_print(&(triangle->screen_A));
-	vector4f_print(&(triangle->screen_B));
-	vector4f_print(&(triangle->screen_C));
+	// printf("New SET\n");
+	// vector4f_print(&(triangle->screen_A));
+	// vector4f_print(&(triangle->screen_B));
+	// vector4f_print(&(triangle->screen_C));
 
 }
 

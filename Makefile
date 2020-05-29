@@ -6,7 +6,7 @@
 #    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/06 17:51:42 by home              #+#    #+#              #
-#    Updated: 2020/05/26 01:15:33 by home             ###   ########.fr        #
+#    Updated: 2020/05/29 14:39:50 by home             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +34,6 @@ MATH_NAMES = \
 	$(addprefix rect/, $(RECT_NAMES)) \
 	utils \
 
-DEBUG_NAMES = \
-	test \
-
 RENDER_NAMES = \
 	background \
 	camera \
@@ -53,13 +50,11 @@ SRCS_NAMES = \
 
 FILE_NAMES = \
 	$(SRCS_NAMES) \
-	$(addprefix debug/, $(DEBUG_NAMES)) \
 	$(addprefix math/, $(MATH_NAMES)) \
 	$(addprefix render/, $(RENDER_NAMES)) \
 
 OBJ_NAMES = \
 	$(addsuffix .o, $(SRCS_NAMES)) \
-	$(addsuffix .o, $(DEBUG_NAMES)) \
 	$(addsuffix .o, $(RENDER_NAMES)) \
 
 SRCS = $(addsuffix .c, $(addprefix $(SRCS_DIR), $(FILE_NAMES)))
