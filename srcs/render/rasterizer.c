@@ -6,13 +6,13 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 01:13:41 by home              #+#    #+#             */
-/*   Updated: 2020/05/28 20:53:53 by home             ###   ########.fr       */
+/*   Updated: 2020/05/29 14:50:14 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "master.h"
 
-void	convert_to_frame_of_reference(t_render_primative *triangle, t_camera *frame)
+void	convert_to_frame_of_reference(t_render_primative *triangle, t_camera *frame, t_display *display)
 {
 	t_vector_4f	origin;
 	t_vector_4f	temp;
@@ -47,6 +47,22 @@ void	convert_to_frame_of_reference(t_render_primative *triangle, t_camera *frame
 		// triangle->screen_B.vec[1] *= -1;
 		triangle->screen_B.vec[1] = -WIN_HEIGHT;
 	}
+
+	t_vector_4f	copy_a;
+	t_vector_4f	copy_b;
+	t_vector_4f	copy_c;
+
+	copy_a = triangle->screen_A;
+	copy_b = triangle->screen_B;
+	copy_c = triangle->screen_C;
+
+	copy_a.color = 0xe3059d;
+	copy_b.color = 0x05e340;
+	copy_c.color = 0xe38a05;
+
+	display_point(copy_a, frame, display);
+	display_point(copy_b, frame, display);
+	display_point(copy_c, frame, display);
 
 	// printf("New SET\n");
 	// vector4f_print(&(triangle->screen_A));
@@ -114,7 +130,7 @@ void	rasterize_triangle(t_render_primative *triangle, t_camera *camera, t_displa
 {
 	t_rect	triangle_area;
 
-	convert_to_frame_of_reference(triangle, camera);
+	convert_to_frame_of_reference(triangle, camera, display);
 
 	triangle_area.start.x = min_of_threef(triangle->screen_A.vec[0], triangle->screen_B.vec[0], triangle->screen_C.vec[0]);
 	triangle_area.start.y = min_of_threef(triangle->screen_A.vec[1], triangle->screen_B.vec[1], triangle->screen_C.vec[1]);
