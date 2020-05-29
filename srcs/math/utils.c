@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 03:58:20 by home              #+#    #+#             */
-/*   Updated: 2020/05/26 21:46:08 by home             ###   ########.fr       */
+/*   Updated: 2020/05/27 17:59:31 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ double		max_of_threef(double a, double b, double c)
 	result = a;
 	if (result < b)
 		result = b;
-	if (result > c)
+	if (result < c)
 		result = c;
 	return (result);
 }

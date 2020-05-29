@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 01:13:41 by home              #+#    #+#             */
-/*   Updated: 2020/05/27 16:36:37 by home             ###   ########.fr       */
+/*   Updated: 2020/05/28 18:57:19 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	convert_to_frame_of_reference(t_render_primative *triangle, t_camera *frame
 	origin.vec[0] = frame->proj.matrix[0][3];
 	origin.vec[1] = frame->proj.matrix[1][3];
 	origin.vec[2] = frame->proj.matrix[2][3];
+	origin.vec[3] = frame->proj.matrix[3][3];
 
 	vector4f_subtract(&(triangle->A), &origin, &(temp));
 	matrix_mult_rel(frame->proj, temp, &(triangle->screen_A));
@@ -32,6 +33,26 @@ void	convert_to_frame_of_reference(t_render_primative *triangle, t_camera *frame
 	vector4f_subtract(&(triangle->C), &origin, &(temp));
 	matrix_mult_rel(frame->proj, temp, &(triangle->screen_C));
 	cam_proj(&(triangle->screen_C));
+
+	if (triangle->screen_A.vec[2] < 0)
+	{
+		triangle->screen_A.vec[0] *= -1;
+		triangle->screen_A.vec[0] -= WIN_WIDTH;
+		triangle->screen_A.vec[1] *= -1;
+	}
+	if (triangle->screen_B.vec[2] < 0)
+	{
+		triangle->screen_B.vec[0] *= -1;
+		triangle->screen_B.vec[0] -= WIN_WIDTH;
+		// triangle->screen_B.vec[1] *= -1;
+		triangle->screen_B.vec[1] = -100;
+	}
+
+	printf("New SET\n");
+	vector4f_print(&(triangle->screen_A));
+	vector4f_print(&(triangle->screen_B));
+	vector4f_print(&(triangle->screen_C));
+
 }
 
 void	create_line(t_vector_4f *p1, t_vector_4f *p2, double *m, double *h, double *k)
@@ -60,7 +81,7 @@ bool		inequality_match(double m, double h, double k, t_vector_4f p1, t_vector_4f
 	y = m * (p2.vec[0] - h) + k;
 	if (side == LESS_THAN && y <= p2.vec[1])
 		result = true;
-	if (side == GREATER_THAN && y <= p2.vec[1])
+	if (side == GREATER_THAN && y > p2.vec[1])
 		result = true;
 	return (result);
 }
@@ -101,17 +122,18 @@ void	rasterize_triangle(t_render_primative *triangle, t_camera *camera, t_displa
 	triangle_area.end.x = max_of_threef(triangle->screen_A.vec[0], triangle->screen_B.vec[0], triangle->screen_C.vec[0]);
 	triangle_area.end.y = max_of_threef(triangle->screen_A.vec[1], triangle->screen_B.vec[1], triangle->screen_C.vec[1]);
 
-	if (triangle_area.start.x < 0)
-		triangle_area.start.x = 0;
-	if (triangle_area.start.y < 0)
-		triangle_area.start.y = 0;
+	// rect_print(&triangle_area);
 
-	if (triangle_area.end.x > WIN_WIDTH)
-		triangle_area.end.x = WIN_WIDTH;
-	if (triangle_area.end.y > WIN_WIDTH)
-		triangle_area.end.y = WIN_WIDTH;
+	if (triangle_area.start.x < -(WIN_WIDTH / 2))
+		triangle_area.start.x = -(WIN_WIDTH / 2);
+	if (triangle_area.start.y < -(WIN_HEIGHT / 2))
+		triangle_area.start.y = -(WIN_HEIGHT / 2);
 
-	rect_print(&triangle_area);
+	if (triangle_area.end.x > (WIN_WIDTH / 2))
+		triangle_area.end.x = (WIN_WIDTH / 2);
+	if (triangle_area.end.y > (WIN_WIDTH / 2))
+		triangle_area.end.y = (WIN_WIDTH / 2);
+
 
 	int			i;
 	int			j;
@@ -123,13 +145,13 @@ void	rasterize_triangle(t_render_primative *triangle, t_camera *camera, t_displa
 		j = triangle_area.start.y;
 		while (j < triangle_area.end.y)
 		{
+			pixel.vec[0] = i;
+			pixel.vec[1] = j;
+			pixel.vec[2] = 300;
 			if (inside_screen_triangle(triangle, i, j) == true)
-			{
-				pixel.vec[0] = i;
-				pixel.vec[1] = j;
-				pixel.vec[2] = 20;
 				color_in(pixel, 0x858585, display);
-			}
+			// else
+			// 	color_in(pixel, 0xe6e6e6, display);
 			j++;
 		}
 		i++;

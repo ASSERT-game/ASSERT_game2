@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 01:59:06 by home              #+#    #+#             */
-/*   Updated: 2020/05/26 18:07:32 by home             ###   ########.fr       */
+/*   Updated: 2020/05/28 18:32:04 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	cam_proj(t_vector_4f *transform)
 	scale = CAMERA_DEPTH / (double)transform->vec[2];
 	scale *= 50;
 
-	transform->vec[0] = (transform->vec[0] * scale + (WIN_WIDTH / 2));
-	transform->vec[1] = WIN_HEIGHT - (transform->vec[1] * scale + (WIN_HEIGHT / 2));
+	transform->vec[0] = transform->vec[0] * scale;
+	transform->vec[1] = (transform->vec[1] * scale);
 }
 
 void	camera_update(t_camera *camera)

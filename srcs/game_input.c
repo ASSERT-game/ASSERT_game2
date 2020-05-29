@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 17:41:20 by home              #+#    #+#             */
-/*   Updated: 2020/05/26 04:37:44 by home             ###   ########.fr       */
+/*   Updated: 2020/05/28 17:43:07 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #define WALK_SPEED 15
 #define STRAFE_BIAS 1.75
-#define ROTATION_SPEED 3
+#define ROTATION_SPEED 1
 
 void	update_state(t_display *display, t_camera *camera)
 {

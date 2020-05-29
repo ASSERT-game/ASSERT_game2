@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 00:12:10 by home              #+#    #+#             */
-/*   Updated: 2020/05/26 19:44:54 by home             ###   ########.fr       */
+/*   Updated: 2020/05/27 18:43:05 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	poll_and_toolbar(t_display *display)
 	vector4f_fill_c(&origin,       0,   0,     0, 0x0000FF);
 
 	fill_render_primitive(&triangle,
-						(t_vector_4f){{  0,   0, 10, 0}, 0x42f5dd},
-						(t_vector_4f){{100, 100, 25, 0}, 0x42f5dd},
-						(t_vector_4f){{150, 100, 50, 0}, 0x42f5dd});
+						(t_vector_4f){{-100, 200, 130, 0}, 0x42f5dd},
+						(t_vector_4f){{-100,   0, 130, 0}, 0x42f5dd},
+						(t_vector_4f){{ 100,   0, 130, 0}, 0x42f5dd});
 
 	cube = malloc(sizeof(*cube) * ((size * size) * 6));
 	fill_cube(cube, size);

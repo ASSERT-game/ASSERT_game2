@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 22:40:38 by home              #+#    #+#             */
-/*   Updated: 2020/05/21 19:26:27 by home             ###   ########.fr       */
+/*   Updated: 2020/05/28 18:28:46 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	color_in(t_vector_4f location, int color, t_display *display)
 {
+	location.vec[0] += WIN_WIDTH / 2.0;
+	location.vec[1] = WIN_HEIGHT / 2.0 - location.vec[1];
+
 	if (location.vec[0] < 0 || location.vec[0] > display->width ||
 		location.vec[1] < 0 || location.vec[1] > display->height ||
 		location.vec[2] < CAMERA_DEPTH || location.vec[2] > RENDER_DISTANCE ||
