@@ -6,13 +6,13 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 01:13:41 by home              #+#    #+#             */
-/*   Updated: 2020/05/29 14:50:14 by home             ###   ########.fr       */
+/*   Updated: 2020/05/30 02:49:39 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "master.h"
 
-void	convert_to_frame_of_reference(t_render_primative *triangle, t_camera *frame, t_display *display)
+void	convert_to_frame_of_reference(t_render_primative *triangle, t_camera *frame)
 {
 	t_vector_4f	origin;
 	t_vector_4f	temp;
@@ -24,51 +24,35 @@ void	convert_to_frame_of_reference(t_render_primative *triangle, t_camera *frame
 
 	vector4f_subtract(&(triangle->A), &origin, &(temp));
 	matrix_mult_rel(frame->proj, temp, &(triangle->screen_A));
-	cam_proj(&(triangle->screen_A));
 
 	vector4f_subtract(&(triangle->B), &origin, &(temp));
 	matrix_mult_rel(frame->proj, temp, &(triangle->screen_B));
-	cam_proj(&(triangle->screen_B));
 
 	vector4f_subtract(&(triangle->C), &origin, &(temp));
 	matrix_mult_rel(frame->proj, temp, &(triangle->screen_C));
+
+
+	// if (triangle->screen_A.vec[2] < 0)
+	// {
+	// 	triangle->screen_A.vec[0] = triangle->screen_C.vec[0] + triangle->screen_C.vec[0] - triangle->screen_A.vec[0];
+	// 	triangle->screen_A.vec[1] = triangle->screen_C.vec[1] + triangle->screen_C.vec[1] - triangle->screen_A.vec[1];
+	// }
+
+	// if (triangle->screen_B.vec[2] < 0)
+	// {
+	// 	triangle->screen_B.vec[0] = triangle->screen_C.vec[0] + triangle->screen_C.vec[0] - triangle->screen_B.vec[0];
+	// 	triangle->screen_B.vec[1] = triangle->screen_C.vec[1] + triangle->screen_C.vec[1] - triangle->screen_B.vec[1];
+	// }
+
+	// if (triangle->screen_C.vec[2] < 0)
+	// {
+	// 	triangle->screen_C.vec[0] = triangle->screen_B.vec[0] + triangle->screen_B.vec[0] - triangle->screen_C.vec[0];
+	// 	triangle->screen_C.vec[1] = triangle->screen_B.vec[1] + triangle->screen_B.vec[1] - triangle->screen_C.vec[1];
+	// }
+
+	cam_proj(&(triangle->screen_A));
+	cam_proj(&(triangle->screen_B));
 	cam_proj(&(triangle->screen_C));
-
-	if (triangle->screen_A.vec[2] < 0)
-	{
-		triangle->screen_A.vec[0] *= -1;
-		triangle->screen_A.vec[0] -= WIN_WIDTH;
-		triangle->screen_A.vec[1] *= -1;
-	}
-	if (triangle->screen_B.vec[2] < 0)
-	{
-		triangle->screen_B.vec[0] *= -1;
-		triangle->screen_B.vec[0] -= WIN_WIDTH;
-		// triangle->screen_B.vec[1] *= -1;
-		triangle->screen_B.vec[1] = -WIN_HEIGHT;
-	}
-
-	t_vector_4f	copy_a;
-	t_vector_4f	copy_b;
-	t_vector_4f	copy_c;
-
-	copy_a = triangle->screen_A;
-	copy_b = triangle->screen_B;
-	copy_c = triangle->screen_C;
-
-	copy_a.color = 0xe3059d;
-	copy_b.color = 0x05e340;
-	copy_c.color = 0xe38a05;
-
-	display_point(copy_a, frame, display);
-	display_point(copy_b, frame, display);
-	display_point(copy_c, frame, display);
-
-	// printf("New SET\n");
-	// vector4f_print(&(triangle->screen_A));
-	// vector4f_print(&(triangle->screen_B));
-	// vector4f_print(&(triangle->screen_C));
-
 }
 
 void	create_line(t_vector_4f *p1, t_vector_4f *p2, double *m, double *h, double *k)
@@ -130,15 +114,16 @@ void	rasterize_triangle(t_render_primative *triangle, t_camera *camera, t_displa
 {
 	t_rect	triangle_area;
 
-	convert_to_frame_of_reference(triangle, camera, display);
+	convert_to_frame_of_reference(triangle, camera);
+
+	if (triangle->screen_A.vec[2] < 200 && triangle->screen_B.vec[2] < 200 && triangle->screen_C.vec[2] < 200)
+		return ;
 
 	triangle_area.start.x = min_of_threef(triangle->screen_A.vec[0], triangle->screen_B.vec[0], triangle->screen_C.vec[0]);
 	triangle_area.start.y = min_of_threef(triangle->screen_A.vec[1], triangle->screen_B.vec[1], triangle->screen_C.vec[1]);
 
 	triangle_area.end.x = max_of_threef(triangle->screen_A.vec[0], triangle->screen_B.vec[0], triangle->screen_C.vec[0]);
 	triangle_area.end.y = max_of_threef(triangle->screen_A.vec[1], triangle->screen_B.vec[1], triangle->screen_C.vec[1]);
-
-	// rect_print(&triangle_area);
 
 	if (triangle_area.start.x < -(WIN_WIDTH / 2))
 		triangle_area.start.x = -(WIN_WIDTH / 2);
@@ -149,7 +134,6 @@ void	rasterize_triangle(t_render_primative *triangle, t_camera *camera, t_displa
 		triangle_area.end.x = (WIN_WIDTH / 2);
 	if (triangle_area.end.y > (WIN_WIDTH / 2))
 		triangle_area.end.y = (WIN_WIDTH / 2);
-
 
 	int			i;
 	int			j;
@@ -163,17 +147,22 @@ void	rasterize_triangle(t_render_primative *triangle, t_camera *camera, t_displa
 		{
 			pixel.vec[0] = i;
 			pixel.vec[1] = j;
-			pixel.vec[2] = 300;
 			if (inside_screen_triangle(triangle, i, j) == true)
-				color_in(pixel, 0x858585, display);
+			{
+				pixel.vec[2] = (triangle->screen_A.vec[2] + triangle->screen_B.vec[2] + triangle->screen_C.vec[2]) / 3;
+				color_in(pixel, triangle->A.color, display);
+			}
 			// else
+			// {
+			// 	pixel.vec[2] = 330;
 			// 	color_in(pixel, 0xe6e6e6, display);
+			// }
 			j++;
 		}
 		i++;
 	}
 
-	draw_point(triangle->screen_A, display);
-	draw_point(triangle->screen_B, display);
-	draw_point(triangle->screen_C, display);
+	// draw_point(triangle->screen_A, display);
+	// draw_point(triangle->screen_B, display);
+	// draw_point(triangle->screen_C, display);
 }

@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 01:59:06 by home              #+#    #+#             */
-/*   Updated: 2020/05/28 20:59:34 by home             ###   ########.fr       */
+/*   Updated: 2020/05/30 02:53:33 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_camera(t_camera *dest)
 	dest->proj.matrix[2][2] = 1;
 	dest->proj.matrix[3][3] = 1;
 
-	dest->proj.matrix[1][3] = 100;
+	dest->proj.matrix[1][3] = 300;
 
 	dest->roll = 0;
 	dest->yaw = 0;
@@ -35,7 +35,7 @@ void	cam_proj(t_vector_4f *transform)
 	double scale;
 
 	scale = CAMERA_DEPTH / (double)transform->vec[2];
-	scale *= 50;
+	scale *= 110;
 
 	transform->vec[0] = transform->vec[0] * scale;
 	transform->vec[1] = (transform->vec[1] * scale);

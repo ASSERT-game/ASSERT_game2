@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 17:41:20 by home              #+#    #+#             */
-/*   Updated: 2020/05/28 20:55:16 by home             ###   ########.fr       */
+/*   Updated: 2020/05/30 03:14:42 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 void	update_state(t_display *display, t_camera *camera)
 {
+	static int	jump;
 	SDL_Event	e;
 	const Uint8	*keystate;
 
@@ -49,6 +50,29 @@ void	update_state(t_display *display, t_camera *camera)
 		camera->proj.matrix[2][3] -= WALK_SPEED * sind(camera->yaw + 90);
 	}
 
+	if (keystate[SDL_SCANCODE_DOWN])
+	{
+		camera->proj.matrix[1][3] -= WALK_SPEED;
+		// camera->proj.matrix[2][3] += WALK_SPEED * sind(camera->yaw + 90);
+	}
+	if (keystate[SDL_SCANCODE_UP])
+	{
+		camera->proj.matrix[1][3] += WALK_SPEED;
+		// camera->proj.matrix[2][3] -= WALK_SPEED * sind(camera->yaw + 90);
+	}
+
+	if (keystate[SDL_SCANCODE_SPACE] && jump == 0)
+	{
+		jump = 20;
+		// camera->proj.matrix[2][3] -= WALK_SPEED * sind(camera->yaw + 90);
+	}
+
+	if (jump > 0)
+	{
+		camera->proj.matrix[1][3] = -2 * (jump - 0) * (jump - 20) + 100;
+		jump--;
+	}
+
 	// if (keystate[SDL_SCANCODE_COMMA])
 	// 	camera->roll += ROTATION_SPEED;
 	// if (keystate[SDL_SCANCODE_PERIOD])
@@ -57,8 +81,9 @@ void	update_state(t_display *display, t_camera *camera)
 	// 	camera->yaw += ROTATION_SPEED;
 	// if (keystate[SDL_SCANCODE_L])
 	// 	camera->yaw -= ROTATION_SPEED;
-	if (keystate[SDL_SCANCODE_COMMA])
+
+	if (keystate[SDL_SCANCODE_LEFT])
 		camera->yaw += ROTATION_SPEED;
-	if (keystate[SDL_SCANCODE_PERIOD])
+	if (keystate[SDL_SCANCODE_RIGHT])
 		camera->yaw -= ROTATION_SPEED;
 }

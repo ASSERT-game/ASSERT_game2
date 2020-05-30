@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 23:13:44 by home              #+#    #+#             */
-/*   Updated: 2020/05/25 17:55:01 by home             ###   ########.fr       */
+/*   Updated: 2020/05/30 00:54:06 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 # define BPP 4
 
-# define CAMERA_DEPTH 5
+# define CAMERA_DEPTH 12
 
 # define RENDER_DISTANCE 300000
 

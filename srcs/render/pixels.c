@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 22:40:38 by home              #+#    #+#             */
-/*   Updated: 2020/05/28 18:28:46 by home             ###   ########.fr       */
+/*   Updated: 2020/05/28 21:43:10 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,28 @@ void	color_in(t_vector_4f location, int color, t_display *display)
 		display->pixels[((int)location.vec[1]) * 1200 * BPP + ((int)location.vec[0]) * BPP + 2] = color >> 16;
 
 		display->depth_map[((int)location.vec[1]) * 1200 + ((int)location.vec[0])] =location.vec[2];
+	}
+}
+
+void	big_color_in(t_vector_4f location, int color, t_display *display)
+{
+	int	i;
+	int	j;
+	int	size;
+
+	i = 0;
+	size = 5;
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+			color_in(location, color, display);
+			location.vec[1]++;
+			j++;
+		}
+		location.vec[1] -= size;
+		location.vec[0]++;
+		i++;
 	}
 }

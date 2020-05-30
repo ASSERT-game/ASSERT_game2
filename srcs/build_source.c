@@ -6,53 +6,41 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 00:12:10 by home              #+#    #+#             */
-/*   Updated: 2020/05/28 20:54:47 by home             ###   ########.fr       */
+/*   Updated: 2020/05/30 02:49:25 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "master.h"
 
-void	fill_render_primitive(t_render_primative *dest,
-	t_vector_4f A, t_vector_4f B, t_vector_4f C)
-{
-	dest->A = A;
-	dest->B = B;
-	dest->C = C;
-
-	dest->screen_A.color = dest->A.color;
-	dest->screen_B.color = dest->B.color;
-	dest->screen_C.color = dest->C.color;
-}
-
 void	poll_and_toolbar(t_display *display)
 {
-	int			size;
 	t_camera	camera;
 
-	t_vector_4f	*cube;
 	t_vector_4f	vanishing;
 	t_vector_4f	origin;
 
-	t_render_primative	triangle;
+	t_render_primative	*cube_m;
 
-	size = 40;
+	cube_m = cube_mesh(&vanishing);
+
 	init_camera(&camera);
 	vector4f_fill_c(&vanishing,  100,   0, 10000, 0xFFFFFF);
 	vector4f_fill_c(&origin,       0,   0,     0, 0x0000FF);
 
-	fill_render_primitive(&triangle,
-						(t_vector_4f){{-100, 200, 130, 0}, 0x42f5dd},
-						(t_vector_4f){{-100,   0, 130, 0}, 0x42f5dd},
-						(t_vector_4f){{ 100,   0, 130, 0}, 0x42f5dd});
+	int i;
 
-	cube = malloc(sizeof(*cube) * ((size * size) * 6));
-	fill_cube(cube, size);
 	while(display->active == true)
 	{
 		update_state(display, &camera);
 		camera_update(&camera);
-		// rasterize_triangle(&triangle, &camera, display);
-		draw_cube(&camera, display, cube, size);
+
+		i = 0;
+		while (i < 12)
+		{
+			rasterize_triangle(&cube_m[i], &camera, display);
+			i++;
+		}
+
 		display_point(vanishing, &camera, display);
 		display_point(origin, &camera, display);
 		refresh_display(display);

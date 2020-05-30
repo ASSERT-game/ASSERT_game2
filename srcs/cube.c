@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 00:29:21 by home              #+#    #+#             */
-/*   Updated: 2020/05/26 00:55:19 by home             ###   ########.fr       */
+/*   Updated: 2020/05/30 02:52:18 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,62 @@ void	draw_cube(t_camera *camera, t_display *display, t_vector_4f *cube, int size
 		display_point(cube[i], camera, display);
 		i++;
 	}
+}
+
+void	fill_render_primitive(t_render_primative *dest,
+	t_vector_4f A, t_vector_4f B, t_vector_4f C)
+{
+	dest->A = A;
+	dest->B = B;
+	dest->C = C;
+
+	dest->screen_A.color = dest->A.color;
+	dest->screen_B.color = dest->B.color;
+	dest->screen_C.color = dest->C.color;
+}
+
+t_render_primative	*cube_mesh(t_vector_4f *pos)
+{
+	t_render_primative	*mesh;
+
+	mesh = malloc(sizeof(*mesh) * (6 * 2));
+
+	t_vector_4f	v1;
+	t_vector_4f	v2;
+	t_vector_4f	v3;
+	t_vector_4f	v4;
+	t_vector_4f	v5;
+	t_vector_4f	v6;
+	t_vector_4f	v7;
+	t_vector_4f	v8;
+
+	vector4f_fill_c(&v1, -100, 200, -100 + 200, 0x048ed9);
+	vector4f_fill_c(&v2, -100, 200,  100 + 200, 0xd40647);
+	vector4f_fill_c(&v3,  100, 200, -100 + 200, 0x0bd604);
+	vector4f_fill_c(&v4,  100, 200,  100 + 200, 0xd90ba2);
+	vector4f_fill_c(&v5, -100,   0, -100 + 200, 0x6d0bde);
+	vector4f_fill_c(&v6, -100,   0,  100 + 200, 0xd90ba2);
+	vector4f_fill_c(&v7,  100,   0, -100 + 200, 0x6d0bde);
+	vector4f_fill_c(&v8,  100,   0,  100 + 200, 0xd90ba2);
+
+	fill_render_primitive(&mesh[0], v1, v2, v3);
+	fill_render_primitive(&mesh[1], v2, v3, v4);
+
+	fill_render_primitive(&mesh[2], v1, v2, v5);
+	fill_render_primitive(&mesh[3], v2, v5, v6);
+
+	fill_render_primitive(&mesh[4], v3, v4, v7);
+	fill_render_primitive(&mesh[5], v4, v7, v8);
+
+	fill_render_primitive(&mesh[6], v1, v3, v5);
+	fill_render_primitive(&mesh[7], v3, v5, v7);
+
+	fill_render_primitive(&mesh[8], v2, v4, v6);
+	fill_render_primitive(&mesh[9], v4, v6, v8);
+
+	fill_render_primitive(&mesh[10], v5, v6, v7);
+	fill_render_primitive(&mesh[11], v6, v7, v8);
+	(void)pos;
+
+	return (mesh);
 }
