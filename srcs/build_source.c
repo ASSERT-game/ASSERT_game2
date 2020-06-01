@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 00:12:10 by home              #+#    #+#             */
-/*   Updated: 2020/05/30 02:49:25 by home             ###   ########.fr       */
+/*   Updated: 2020/06/01 03:30:50 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,22 @@ void	poll_and_toolbar(t_display *display)
 	t_vector_4f	vanishing;
 	t_vector_4f	origin;
 
-	t_render_primative	*cube_m;
 
+	int i;
+	t_render_primative	*cube_m;
 	cube_m = cube_mesh(&vanishing);
+
+	t_render_primative	triangle;
+	fill_render_primitive(&triangle,
+			(t_vector_4f){{ 100,    0, 700, 1}, 0xff0000},
+			(t_vector_4f){{ 100,  150, 700, 1}, 0x00ff00},
+			(t_vector_4f){{   0,  100, 760, 1}, 0x0000ff}
+	);
 
 	init_camera(&camera);
 	vector4f_fill_c(&vanishing,  100,   0, 10000, 0xFFFFFF);
 	vector4f_fill_c(&origin,       0,   0,     0, 0x0000FF);
 
-	int i;
 
 	while(display->active == true)
 	{
@@ -40,6 +47,8 @@ void	poll_and_toolbar(t_display *display)
 			rasterize_triangle(&cube_m[i], &camera, display);
 			i++;
 		}
+
+		rasterize_triangle(&triangle, &camera, display);
 
 		display_point(vanishing, &camera, display);
 		display_point(origin, &camera, display);

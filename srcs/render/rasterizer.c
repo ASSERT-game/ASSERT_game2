@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 01:13:41 by home              #+#    #+#             */
-/*   Updated: 2020/05/30 02:49:39 by home             ###   ########.fr       */
+/*   Updated: 2020/06/01 04:02:33 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,26 +88,78 @@ bool		inequality_match(double m, double h, double k, t_vector_4f p1, t_vector_4f
 
 bool		inside_screen_triangle(t_render_primative *triangle, int x, int y)
 {
-	bool		result;
 	t_vector_4f	test;
 	double		m;
 	double		h;
 	double		k;
 
-	result = true;
 	test.vec[0] = x;
 	test.vec[1] = y;
 
 	create_line(&(triangle->screen_A), &(triangle->screen_B), &m, &h, &k);
-	result &= inequality_match(m, h, k, triangle->screen_C, test);
+	if (inequality_match(m, h, k, triangle->screen_C, test) == false)
+		return (false);
 
 	create_line(&(triangle->screen_B), &(triangle->screen_C), &m, &h, &k);
-	result &= inequality_match(m, h, k, triangle->screen_A, test);
+	if (inequality_match(m, h, k, triangle->screen_A, test) == false)
+		return (false);
 
 	create_line(&(triangle->screen_C), &(triangle->screen_A), &m, &h, &k);
-	result &= inequality_match(m, h, k, triangle->screen_B, test);
+	if (inequality_match(m, h, k, triangle->screen_B, test) == false)
+		return (false);
 
-	return (result);
+	return (true);
+}
+
+t_vector_4f	*top_vertex(t_render_primative *triangle)
+{
+	t_vector_4f	*top;
+
+	top = &(triangle->screen_A);
+
+	if (top->vec[1] < triangle->screen_B.vec[1])
+		top = &(triangle->screen_B);
+	else if (top->vec[1] == triangle->screen_B.vec[1] && top->vec[0] > triangle->screen_B.vec[0])
+		top = &(triangle->screen_B);
+
+	if (top->vec[1] < triangle->screen_C.vec[1])
+		top = &(triangle->screen_C);
+	else if (top->vec[1] == triangle->screen_C.vec[1] && top->vec[0] > triangle->screen_C.vec[0])
+		top = &(triangle->screen_B);
+
+	return (top);
+}
+
+t_vector_4f	*bottom_vertex(t_render_primative *triangle)
+{
+	t_vector_4f	*bottom;
+
+	bottom = &(triangle->screen_A);
+
+	if (bottom->vec[1] > triangle->screen_B.vec[1])
+		bottom = &(triangle->screen_B);
+	else if (bottom->vec[1] == triangle->screen_B.vec[1] && bottom->vec[0] < triangle->screen_B.vec[0])
+		bottom = &(triangle->screen_B);
+
+	if (bottom->vec[1] > triangle->screen_C.vec[1])
+		bottom = &(triangle->screen_C);
+	else if (bottom->vec[1] == triangle->screen_C.vec[1] && bottom->vec[0] < triangle->screen_C.vec[0])
+		bottom = &(triangle->screen_B);
+
+	return (bottom);
+}
+
+t_vector_4f *middle_vertex(t_render_primative *triangle, t_vector_4f *top, t_vector_4f *bottom)
+{
+	t_vector_4f	*middle;
+
+	if (top != &(triangle->screen_A) && bottom != &(triangle->screen_A))
+		middle = &(triangle->screen_A);
+	else if (top != &(triangle->screen_B) && bottom != &(triangle->screen_B))
+		middle = &(triangle->screen_B);
+	else
+		middle = &(triangle->screen_C);
+	return (middle);
 }
 
 void	rasterize_triangle(t_render_primative *triangle, t_camera *camera, t_display *display)
@@ -139,8 +191,8 @@ void	rasterize_triangle(t_render_primative *triangle, t_camera *camera, t_displa
 	int			j;
 	t_vector_4f	pixel;
 
-	i = triangle_area.start.x;
-	while (i < triangle_area.end.x)
+	i = triangle_area.start.x - 2;
+	while (i < triangle_area.end.x + 2)
 	{
 		j = triangle_area.start.y;
 		while (j < triangle_area.end.y)
@@ -150,19 +202,69 @@ void	rasterize_triangle(t_render_primative *triangle, t_camera *camera, t_displa
 			if (inside_screen_triangle(triangle, i, j) == true)
 			{
 				pixel.vec[2] = (triangle->screen_A.vec[2] + triangle->screen_B.vec[2] + triangle->screen_C.vec[2]) / 3;
-				color_in(pixel, triangle->A.color, display);
+				big_color_in(pixel, triangle->A.color, display);
 			}
-			// else
-			// {
-			// 	pixel.vec[2] = 330;
-			// 	color_in(pixel, 0xe6e6e6, display);
-			// }
-			j++;
+			j += 2;
 		}
-		i++;
+		i += 2;
 	}
 
-	// draw_point(triangle->screen_A, display);
-	// draw_point(triangle->screen_B, display);
-	// draw_point(triangle->screen_C, display);
+	t_vector_4f *top;
+	t_vector_4f *middle;
+	t_vector_4f *bottom;
+
+	top = top_vertex(triangle);
+	bottom = bottom_vertex(triangle);
+	middle = middle_vertex(triangle, top, bottom);
+
+	// printf("TOP: \n");
+	// vector4f_print(top);
+	// printf("MIDDLE: \n");
+	// vector4f_print(middle);
+	// vector4f_print(bottom);
+
+	double	start;
+	double	start_delta;
+
+	double	end;
+	double	end_delta;
+
+	int		iter;
+	int		iter_delta;
+
+	i = top->vec[1];
+	end = top->vec[0];
+	start = top->vec[0];
+
+	start_delta = (middle->vec[0] - top->vec[0]) / (top->vec[1] - middle->vec[1]);
+	if (-.05 < top->vec[1] - middle->vec[1] && top->vec[1] - middle->vec[1] < .05)
+		start_delta = 0;
+
+	end_delta = (bottom->vec[0] - top->vec[0]) / (top->vec[1] - bottom->vec[1]);
+	if (-.05 < top->vec[1] - bottom->vec[1] && top->vec[1] - bottom->vec[1] < .05)
+		end_delta = 0;
+
+	// printf("BOTTOM: %f with %f\n", end_delta, top->vec[1] - middle->vec[1]);
+	while (i > (int)(middle->vec[1]))
+	{
+		iter = (int)start;
+
+		if (start < end)
+			iter_delta = 1;
+		else
+			iter_delta = -1;
+
+		// printf("%d and %d and %d\n", iter, (int)end, iter_delta);
+		while (iter != (int)end)
+		{
+			pixel.vec[0] = iter;
+			pixel.vec[1] = i;
+			pixel.vec[2] = 13;
+			big_color_in(pixel, 0x0000FF, display);
+			iter += iter_delta;
+		}
+		start += start_delta;
+		end += end_delta;
+		i--;
+	}
 }

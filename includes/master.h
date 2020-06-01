@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:55:52 by home              #+#    #+#             */
-/*   Updated: 2020/05/29 23:50:19 by home             ###   ########.fr       */
+/*   Updated: 2020/05/31 22:15:08 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ void			refresh_display(t_display *display);
 void			apply_background(unsigned char *dest, unsigned char *source, int pixels);
 unsigned char	*make_background(int color, int total_pixels);
 
+
+void	fill_render_primitive(t_render_primative *dest,
+	t_vector_4f A, t_vector_4f B, t_vector_4f C);
 void			fill_cube(t_vector_4f *dest, int size);
 void			draw_cube(t_camera *camera, t_display *display, t_vector_4f *cube, int size);
 t_render_primative	*cube_mesh(t_vector_4f *pos);

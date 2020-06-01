@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 22:40:38 by home              #+#    #+#             */
-/*   Updated: 2020/05/28 21:43:10 by home             ###   ########.fr       */
+/*   Updated: 2020/05/30 04:12:44 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	big_color_in(t_vector_4f location, int color, t_display *display)
 	int	size;
 
 	i = 0;
-	size = 5;
+	size = 2;
 	while (i < size)
 	{
 		j = 0;
