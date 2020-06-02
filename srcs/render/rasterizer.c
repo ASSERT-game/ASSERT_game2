@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 01:13:41 by home              #+#    #+#             */
-/*   Updated: 2020/06/01 04:02:33 by home             ###   ########.fr       */
+/*   Updated: 2020/06/02 02:00:59 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,26 +188,26 @@ void	rasterize_triangle(t_render_primative *triangle, t_camera *camera, t_displa
 		triangle_area.end.y = (WIN_WIDTH / 2);
 
 	int			i;
-	int			j;
+	// int			j;
 	t_vector_4f	pixel;
 
-	i = triangle_area.start.x - 2;
-	while (i < triangle_area.end.x + 2)
-	{
-		j = triangle_area.start.y;
-		while (j < triangle_area.end.y)
-		{
-			pixel.vec[0] = i;
-			pixel.vec[1] = j;
-			if (inside_screen_triangle(triangle, i, j) == true)
-			{
-				pixel.vec[2] = (triangle->screen_A.vec[2] + triangle->screen_B.vec[2] + triangle->screen_C.vec[2]) / 3;
-				big_color_in(pixel, triangle->A.color, display);
-			}
-			j += 2;
-		}
-		i += 2;
-	}
+	// i = triangle_area.start.x - 2;
+	// while (i < triangle_area.end.x + 2)
+	// {
+	// 	j = triangle_area.start.y;
+	// 	while (j < triangle_area.end.y)
+	// 	{
+	// 		pixel.vec[0] = i;
+	// 		pixel.vec[1] = j;
+	// 		if (inside_screen_triangle(triangle, i, j) == true)
+	// 		{
+	// 			pixel.vec[2] = (triangle->screen_A.vec[2] + triangle->screen_B.vec[2] + triangle->screen_C.vec[2]) / 3;
+	// 			big_color_in(pixel, triangle->A.color, display);
+	// 		}
+	// 		j += 2;
+	// 	}
+	// 	i += 2;
+	// }
 
 	t_vector_4f *top;
 	t_vector_4f *middle;
@@ -250,12 +250,12 @@ void	rasterize_triangle(t_render_primative *triangle, t_camera *camera, t_displa
 		iter = (int)start;
 
 		if (start < end)
-			iter_delta = 1;
+			iter_delta = PIXEL_SIZE;
 		else
-			iter_delta = -1;
+			iter_delta = -PIXEL_SIZE;
 
 		// printf("%d and %d and %d\n", iter, (int)end, iter_delta);
-		while (iter != (int)end)
+		while (abs(iter - (int)end) > PIXEL_SIZE)
 		{
 			pixel.vec[0] = iter;
 			pixel.vec[1] = i;
@@ -263,8 +263,8 @@ void	rasterize_triangle(t_render_primative *triangle, t_camera *camera, t_displa
 			big_color_in(pixel, 0x0000FF, display);
 			iter += iter_delta;
 		}
-		start += start_delta;
-		end += end_delta;
-		i--;
+		start += start_delta * PIXEL_SIZE;
+		end += end_delta * PIXEL_SIZE;
+		i -= PIXEL_SIZE;
 	}
 }

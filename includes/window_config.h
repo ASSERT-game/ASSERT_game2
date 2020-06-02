@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 23:13:44 by home              #+#    #+#             */
-/*   Updated: 2020/05/31 23:54:27 by home             ###   ########.fr       */
+/*   Updated: 2020/06/01 04:57:14 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@
 # define CAMERA_DEPTH 12
 
 # define RENDER_DISTANCE 300000
+
+# define PIXEL_SIZE 2
 
 #endif
