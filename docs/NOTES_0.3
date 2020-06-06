@@ -6,15 +6,15 @@
 #    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/29 23:35:10 by home              #+#    #+#              #
-#    Updated: 2020/05/29 23:38:20 by home             ###   ########.fr        #
+#    Updated: 2020/06/06 00:24:45 by home             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 Not sure why the code in the rasterizer.c function: convert_to_frame_of_reference
 works quite exactly. It should only work on certain cases but not on all.
-Next of all this projection buisness is pretty hard.
+Next of all this projection business is pretty hard.
 
-This is because when the vectices are behind the camera, they will still
+This is because when the vertices are behind the camera, they will still
 get projected, but on the other side of the screen. Once would think
 that a simple multiplication by -1 would work but it didn't. Couldn't quite
 figure out why not either...

@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:49:36 by home              #+#    #+#             */
-/*   Updated: 2020/06/02 03:16:37 by home             ###   ########.fr       */
+/*   Updated: 2020/06/05 22:48:27 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct	s_camera
 	int				yaw;
 }				t_camera;
 
-typedef struct	s_render_primative
+typedef struct	s_render_primitive
 {
 	//texture
 	//uv_triangle
@@ -60,6 +60,6 @@ typedef struct	s_render_primative
 	t_vector_4f	uv_C;
 
 
-}				t_render_primative;
+}				t_render_primitive;
 
 #endif

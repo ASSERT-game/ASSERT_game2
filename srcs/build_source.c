@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 00:12:10 by home              #+#    #+#             */
-/*   Updated: 2020/06/03 07:10:28 by home             ###   ########.fr       */
+/*   Updated: 2020/06/06 00:25:41 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	poll_and_toolbar(t_display *display)
 
 
 	int i;
-	t_render_primative	*cube_m;
+	t_render_primitive	*cube_m;
 	cube_m = cube_mesh(&vanishing);
 
-	t_render_primative	triangle;
+	t_render_primitive	triangle;
 	fill_render_primitive(&triangle,
 			(t_vector_4f){{ 100,    0, 700, 1}, 0xff0000},
 			(t_vector_4f){{ 100,  150, 700, 1}, 0x00ff00},

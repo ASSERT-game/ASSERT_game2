@@ -1,0 +1,28 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    NOTES_0.4                                          :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: home <home@student.42.fr>                  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/06/06 00:04:18 by home              #+#    #+#              #
+#    Updated: 2020/06/06 00:22:58 by home             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+Figuring out the color of each pixel in a rasterized triangle is more difficult
+than anticipated. Method will end up involving barycentric coordinates. Other
+methods I came up with seems a bit too messy, i.e. the logic of shading each
+pixel was going to be too ingrained in the logic of rasterizing the triangle,
+meaning that future changes to determine the "attributes" of the pixel were
+going to prove difficult and unreadable.
+
+Working on this engine has proven to be a bigger project than I can
+take on. I knew of barycentric coordinates but didn't know how difficult
+they would be implementing. However after fiddling with the math of them
+they turned out be more simple, if not more elegant, solution to the problem
+I had in mind. The problem with this is that I cannot keep diving to deep
+into potential solutions because  I am unsure if they would work out.
+Perhaps I need a better mathematical background. This however is more
+a problem of creating heuristic methods to know which tool to use and when.
+

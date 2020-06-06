@@ -6,13 +6,13 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 01:13:41 by home              #+#    #+#             */
-/*   Updated: 2020/06/03 07:11:24 by home             ###   ########.fr       */
+/*   Updated: 2020/06/05 22:48:11 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "master.h"
 
-void	convert_to_frame_of_reference(t_render_primative *triangle, t_camera *frame)
+void	convert_to_frame_of_reference(t_render_primitive *triangle, t_camera *frame)
 {
 	t_vector_4f	origin;
 	t_vector_4f	temp;
@@ -86,7 +86,7 @@ bool		inequality_match(double m, double h, double k, t_vector_4f p1, t_vector_4f
 	return (result);
 }
 
-bool		inside_screen_triangle(t_render_primative *triangle, int x, int y)
+bool		inside_screen_triangle(t_render_primitive *triangle, int x, int y)
 {
 	t_vector_4f	test;
 	double		m;
@@ -111,7 +111,7 @@ bool		inside_screen_triangle(t_render_primative *triangle, int x, int y)
 	return (true);
 }
 
-t_vector_4f	*top_vertex(t_render_primative *triangle)
+t_vector_4f	*top_vertex(t_render_primitive *triangle)
 {
 	t_vector_4f	*top;
 
@@ -130,7 +130,7 @@ t_vector_4f	*top_vertex(t_render_primative *triangle)
 	return (top);
 }
 
-t_vector_4f	*bottom_vertex(t_render_primative *triangle)
+t_vector_4f	*bottom_vertex(t_render_primitive *triangle)
 {
 	t_vector_4f	*bottom;
 
@@ -149,7 +149,7 @@ t_vector_4f	*bottom_vertex(t_render_primative *triangle)
 	return (bottom);
 }
 
-t_vector_4f *middle_vertex(t_render_primative *triangle, t_vector_4f *top, t_vector_4f *bottom)
+t_vector_4f *middle_vertex(t_render_primitive *triangle, t_vector_4f *top, t_vector_4f *bottom)
 {
 	t_vector_4f	*middle;
 
@@ -162,7 +162,7 @@ t_vector_4f *middle_vertex(t_render_primative *triangle, t_vector_4f *top, t_vec
 	return (middle);
 }
 
-void	rasterize_triangle(t_render_primative *triangle, t_camera *camera, t_display *display)
+void	rasterize_triangle(t_render_primitive *triangle, t_camera *camera, t_display *display)
 {
 	t_rect	triangle_area;
 

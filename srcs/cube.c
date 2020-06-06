@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 00:29:21 by home              #+#    #+#             */
-/*   Updated: 2020/06/02 03:36:19 by home             ###   ########.fr       */
+/*   Updated: 2020/06/05 22:48:11 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	draw_cube(t_camera *camera, t_display *display, t_vector_4f *cube, int size
 	}
 }
 
-void	fill_render_primitive(t_render_primative *dest,
+void	fill_render_primitive(t_render_primitive *dest,
 	t_vector_4f A, t_vector_4f B, t_vector_4f C)
 {
 	dest->A = A;
@@ -99,9 +99,9 @@ void	fill_render_primitive(t_render_primative *dest,
 	vector4f_fill(&dest->uv_C, 1, 0, 0);
 }
 
-t_render_primative	*cube_mesh(t_vector_4f *pos)
+t_render_primitive	*cube_mesh(t_vector_4f *pos)
 {
-	t_render_primative	*mesh;
+	t_render_primitive	*mesh;
 
 	mesh = malloc(sizeof(*mesh) * (6 * 2));
 
