@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 00:29:21 by home              #+#    #+#             */
-/*   Updated: 2020/05/31 22:15:12 by home             ###   ########.fr       */
+/*   Updated: 2020/06/02 03:36:19 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,10 @@ void	fill_render_primitive(t_render_primative *dest,
 	dest->screen_A.color = dest->A.color;
 	dest->screen_B.color = dest->B.color;
 	dest->screen_C.color = dest->C.color;
+
+	vector4f_fill(&dest->uv_A, 0, 1, 0);
+	vector4f_fill(&dest->uv_B, 0, 0, 0);
+	vector4f_fill(&dest->uv_C, 1, 0, 0);
 }
 
 t_render_primative	*cube_mesh(t_vector_4f *pos)
