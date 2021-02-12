@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 17:41:20 by home              #+#    #+#             */
-/*   Updated: 2020/06/03 07:14:47 by home             ###   ########.fr       */
+/*   Updated: 2020/11/23 15:19:40 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ void	update_state(t_display *display, t_camera *camera)
 		jump--;
 	}
 
-	// if (keystate[SDL_SCANCODE_COMMA])
-	// 	camera->roll += ROTATION_SPEED;
-	// if (keystate[SDL_SCANCODE_PERIOD])
-	// 	camera->roll -= ROTATION_SPEED;
+	if (keystate[SDL_SCANCODE_COMMA])
+		camera->roll += ROTATION_SPEED;
+	if (keystate[SDL_SCANCODE_PERIOD])
+		camera->roll -= ROTATION_SPEED;
 
 	if (keystate[SDL_SCANCODE_LEFT])
 		camera->yaw += ROTATION_SPEED;

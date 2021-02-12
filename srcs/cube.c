@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 00:29:21 by home              #+#    #+#             */
-/*   Updated: 2020/06/05 22:48:11 by home             ###   ########.fr       */
+/*   Updated: 2021/02/11 17:32:39 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,14 +114,14 @@ t_render_primitive	*cube_mesh(t_vector_4f *pos)
 	t_vector_4f	v7;
 	t_vector_4f	v8;
 
-	vector4f_fill_c(&v1, -100, 200, -100 + 200, 0x048ed9);
-	vector4f_fill_c(&v2, -100, 200,  100 + 200, 0xd40647);
-	vector4f_fill_c(&v3,  100, 200, -100 + 200, 0x0bd604);
-	vector4f_fill_c(&v4,  100, 200,  100 + 200, 0xd90ba2);
-	vector4f_fill_c(&v5, -100,   0, -100 + 200, 0x6d0bde);
-	vector4f_fill_c(&v6, -100,   0,  100 + 200, 0xd90ba2);
-	vector4f_fill_c(&v7,  100,   0, -100 + 200, 0x6d0bde);
-	vector4f_fill_c(&v8,  100,   0,  100 + 200, 0xd90ba2);
+	vector4f_fill_c(&v1, -100 + 300, 200 + 50, -100 + 450, 0x048ed9);
+	vector4f_fill_c(&v2, -100 + 300, 200 + 50,  100 + 450, 0xd40647);
+	vector4f_fill_c(&v3,  100 + 300, 200 + 50, -100 + 450, 0x0bd604);
+	vector4f_fill_c(&v4,  100 + 300, 200 + 50,  100 + 450, 0xd90ba2);
+	vector4f_fill_c(&v5, -100 + 300,   0 + 50, -100 + 450, 0x6d0bde);
+	vector4f_fill_c(&v6, -100 + 300,   0 + 50,  100 + 450, 0xd90ba2);
+	vector4f_fill_c(&v7,  100 + 300,   0 + 50, -100 + 450, 0x6d0bde);
+	vector4f_fill_c(&v8,  100 + 300,   0 + 50,  100 + 450, 0xd90ba2);
 
 	fill_render_primitive(&mesh[0], v1, v2, v3);
 	fill_render_primitive(&mesh[1], v2, v3, v4);

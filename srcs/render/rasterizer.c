@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 01:13:41 by home              #+#    #+#             */
-/*   Updated: 2020/06/05 22:48:11 by home             ###   ########.fr       */
+/*   Updated: 2021/02/11 17:26:04 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,23 @@ void	convert_to_frame_of_reference(t_render_primitive *triangle, t_camera *frame
 	matrix_mult_rel(frame->proj, temp, &(triangle->screen_C));
 
 
-	// if (triangle->screen_A.vec[2] < 0)
-	// {
-	// 	triangle->screen_A.vec[0] = triangle->screen_C.vec[0] + triangle->screen_C.vec[0] - triangle->screen_A.vec[0];
-	// 	triangle->screen_A.vec[1] = triangle->screen_C.vec[1] + triangle->screen_C.vec[1] - triangle->screen_A.vec[1];
-	// }
+	if (triangle->screen_A.vec[2] < 0)
+	{
+		triangle->screen_A.vec[0] = triangle->screen_C.vec[0] + triangle->screen_C.vec[0] - triangle->screen_A.vec[0];
+		triangle->screen_A.vec[1] = triangle->screen_C.vec[1] + triangle->screen_C.vec[1] - triangle->screen_A.vec[1];
+	}
 
-	// if (triangle->screen_B.vec[2] < 0)
-	// {
-	// 	triangle->screen_B.vec[0] = triangle->screen_C.vec[0] + triangle->screen_C.vec[0] - triangle->screen_B.vec[0];
-	// 	triangle->screen_B.vec[1] = triangle->screen_C.vec[1] + triangle->screen_C.vec[1] - triangle->screen_B.vec[1];
-	// }
+	if (triangle->screen_B.vec[2] < 0)
+	{
+		triangle->screen_B.vec[0] = triangle->screen_C.vec[0] + triangle->screen_C.vec[0] - triangle->screen_B.vec[0];
+		triangle->screen_B.vec[1] = triangle->screen_C.vec[1] + triangle->screen_C.vec[1] - triangle->screen_B.vec[1];
+	}
 
-	// if (triangle->screen_C.vec[2] < 0)
-	// {
-	// 	triangle->screen_C.vec[0] = triangle->screen_B.vec[0] + triangle->screen_B.vec[0] - triangle->screen_C.vec[0];
-	// 	triangle->screen_C.vec[1] = triangle->screen_B.vec[1] + triangle->screen_B.vec[1] - triangle->screen_C.vec[1];
-	// }
+	if (triangle->screen_C.vec[2] < 0)
+	{
+		triangle->screen_C.vec[0] = triangle->screen_B.vec[0] + triangle->screen_B.vec[0] - triangle->screen_C.vec[0];
+		triangle->screen_C.vec[1] = triangle->screen_B.vec[1] + triangle->screen_B.vec[1] - triangle->screen_C.vec[1];
+	}
 
 	cam_proj(&(triangle->screen_A));
 	cam_proj(&(triangle->screen_B));
@@ -204,6 +204,8 @@ void	rasterize_triangle(t_render_primitive *triangle, t_camera *camera, t_displa
 				pixel.vec[2] = (triangle->screen_A.vec[2] + triangle->screen_B.vec[2] + triangle->screen_C.vec[2]) / 3;
 				big_color_in(pixel, triangle->A.color, display);
 			}
+			// else
+			// 	big_color_in(pixel, 0x000000, display);
 			j += 2;
 		}
 		i += 2;
@@ -244,15 +246,14 @@ void	rasterize_triangle(t_render_primitive *triangle, t_camera *camera, t_displa
 	// if (-.05 < top->vec[1] - bottom->vec[1] && top->vec[1] - bottom->vec[1] < .05)
 	// 	end_delta = 0;
 
+	// if (start + start_delta < end + end_delta)
+	// 	iter_delta = PIXEL_SIZE;
+	// else
+	// 	iter_delta = -PIXEL_SIZE;
 	// // printf("BOTTOM: %f with %f\n", end_delta, top->vec[1] - middle->vec[1]);
 	// while (i > (int)(middle->vec[1]))
 	// {
 	// 	iter = (int)start;
-
-	// 	if (start < end)
-	// 		iter_delta = PIXEL_SIZE;
-	// 	else
-	// 		iter_delta = -PIXEL_SIZE;
 
 	// 	// printf("%d and %d and %d\n", iter, (int)end, iter_delta);
 	// 	while (abs(iter - (int)end) > PIXEL_SIZE)

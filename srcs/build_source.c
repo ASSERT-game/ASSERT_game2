@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 00:12:10 by home              #+#    #+#             */
-/*   Updated: 2020/06/06 00:25:41 by home             ###   ########.fr       */
+/*   Updated: 2021/02/11 17:30:50 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,28 @@ void	poll_and_toolbar(t_display *display)
 
 
 	int i;
-	t_render_primitive	*cube_m;
-	cube_m = cube_mesh(&vanishing);
+	int size = 20;
+	t_vector_4f cube[size * size * 6];
+	fill_cube(cube, size);
+	t_render_primitive *cube_m = cube_mesh(&vanishing);
 
 	t_render_primitive	triangle;
 	fill_render_primitive(&triangle,
 			(t_vector_4f){{ 100,    0, 700, 1}, 0xff0000},
 			(t_vector_4f){{ 100,  150, 700, 1}, 0x00ff00},
 			(t_vector_4f){{   0,  100, 760, 1}, 0x0000ff}
+	);
+	t_render_primitive	triangle1;
+	fill_render_primitive(&triangle1,
+			(t_vector_4f){{ 100,    0, 700, 1}, 0xffff00},
+			(t_vector_4f){{ 100,  150, 700, 1}, 0x00ff00},
+			(t_vector_4f){{ 100,  150, 600, 1}, 0x0000ff}
+	);
+	t_render_primitive	triangle2;
+	fill_render_primitive(&triangle2,
+			(t_vector_4f){{ 100,    0, 700, 1}, 0xff00ff},
+			(t_vector_4f){{ 100,  150, 600, 1}, 0x0000ff},
+			(t_vector_4f){{  0,  100, 760, 1}, 0x0000ff}
 	);
 
 	init_camera(&camera);
@@ -48,7 +62,11 @@ void	poll_and_toolbar(t_display *display)
 			i++;
 		}
 
-		// rasterize_triangle(&triangle, &camera, display);
+		draw_cube(&camera, display, cube, size);
+
+		rasterize_triangle(&triangle, &camera, display);
+		rasterize_triangle(&triangle1, &camera, display);
+		rasterize_triangle(&triangle2, &camera, display);
 
 		display_point(vanishing, &camera, display);
 		display_point(origin, &camera, display);
