@@ -12,5 +12,5 @@ I derived most of the math myself, but realized that using regular coordinate sy
 to work in.
 
 <br>
-<img height="700" src="https://github.com/ASSERT-game/ASSERT_game2/blob/master/resources/cookie.gif" />
+<img height="700" src="https://github.com/ASSERT-game/ASSERT_game2/blob/master/resources/cookie1.gif" />
 <br>
