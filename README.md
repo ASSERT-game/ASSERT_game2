@@ -3,7 +3,7 @@
 Tried to make a rendering engine, did not succeed. But learned plenty, z-buffers, UV maps, Barycentric coordinates.
 Knowledge that will be helpful if I ever come back to this project or redo.
 
-Most of the code was made using SDL and individually setting the pixels. Hence performance will be slow.
+Most of the code was made using SDL and individually setting the pixels. Hence performance will be slow becuase it will be CPU bound instead of parallelized by a GPU.
 The plan was to be able to map textures onto the triangles, and so be able to create a primitive
 rendering engine. The method used is rasterisation. I would have to rethink and do a big portion of the code
 again to utilize barycentric coordinates which would make the usage of texture files much easier.
